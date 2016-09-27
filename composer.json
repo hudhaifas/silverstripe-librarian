@@ -1,0 +1,24 @@
+{
+    "name": "hudhaifas/silverstripe-librarian",
+    "description": "Complete solution for small and medium libraries.",
+    "type": "silverstripe-module",
+    "homepage": "https://github.com/hudhaifas/silverstripe-librarian",
+    "keywords": ["silverstripe", "library", "librarian", "book"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hudhaifa Shatnawi",
+            "email": "me@hudhaifa.com"
+        }
+    ],
+    "support": {
+        "issues": "http://github.com/hudhaifas/silverstripe-librarian/issues"
+    },
+    "require": {
+        "silverstripe/cms": "~3.0",
+        "silverstripe/framework": "~3.0"
+    },
+    "extra": {
+        "installer-name": "librarian"
+    }
+}
