@@ -22,7 +22,7 @@ $ composer require silverstripe/librarian
 Issued and bugs are tracked on [github.com].
 
 ### Todos
- - Waiting your contributions
+ - Waiting for your contributions
  
 ### License
 
