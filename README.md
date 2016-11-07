@@ -10,11 +10,12 @@ The system manages the following:
 
 ### Requirements
  - SilverStripe 3.2.*
+ - silverstripe/tagfield: ^1.0
 
 ### Installation
 - Install the module through composer:
 ```sh
-$ composer require silverstripe/librarian
+$ composer require hudhaifas/silverstripe-librarian
 ```
 - Run dev/build
 
