@@ -1,0 +1,32 @@
+// Toggle font smoothing mode in Webkit & FF
+.font-smoothing() {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.user-select(@value: none) {
+    -webkit-user-select: @value;   /* prevent copy paste, to allow, change 'none' to 'text' */
+    -khtml-user-select: @value; 
+    -moz-user-select: @value;      /* Firefox all */
+    -o-user-select: @value;        /* IE 10+ */
+    user-select: @value;           /* Likely future */
+}
+
+.user-drag(@value: none) {
+    -webkit-user-drag: @value; 
+    -moz-user-drag: @value; 
+    user-drag: @value; 
+}
+
+.selectNone() {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+
+    .user-select();
+    .user-drag();
+} 
+
+.image-size(@width) {
+    width: @width;
+    /*height: @width * 1.463768115942029;*/
+}

@@ -1,0 +1,158 @@
+.typography a {
+  border-bottom: 1px dashed #fff;
+}
+.table {
+  font-size: 1em;
+}
+a.thumbnail:hover,
+a.thumbnail:focus,
+a.thumbnail.active {
+  border-color: transparent;
+  color: #D80000;
+  border-bottom: 0px;
+}
+.thumbnail {
+  position: relative;
+  /*background: #b3b3b3;*/
+  margin-bottom: auto;
+  padding: 0;
+  border: 0;
+}
+.thumbnail .caption {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  bottom: 0px;
+  background: #000;
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.thumbnail .caption h4 {
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #fff;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-touch-callout: none;
+  /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none;
+  /* prevent webkit from resizing text to fit */
+  -webkit-user-select: none;
+  /* prevent copy paste, to allow, change 'none' to 'text' */
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  /* Firefox all */
+  -o-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  user-drag: none;
+}
+.thumbnail.library-default {
+  /*.image-size(285px);*/
+  width: 100%;
+  height: 100%;
+}
+.thumbnail.library-default .caption h4 {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 16px;
+}
+.thumbnail.catalog-default,
+.thumbnail.books-default {
+  width: 207px;
+  /*height: @width * 1.463768115942029;*/
+  margin-bottom: 10px;
+}
+.thumbnail.catalog-default .caption h4,
+.thumbnail.books-default .caption h4 {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 16px;
+}
+.thumbnail.volume-default {
+  width: 280px;
+  /*height: @width * 1.463768115942029;*/
+}
+.thumbnail.volume-default .caption h4 {
+  padding-left: 20px;
+  padding-right: 20px;
+  line-height: 24px;
+  font-size: 18px;
+}
+.thumbnail.carousel-default {
+  width: 280px;
+  /*height: @width * 1.463768115942029;*/
+}
+.thumbnail.carousel-default .caption h4 {
+  padding-left: 20px;
+  padding-right: 20px;
+  line-height: 24px;
+  font-size: 18px;
+}
+.thumbnail.book-default {
+  width: 140px;
+  /*height: @width * 1.463768115942029;*/
+}
+.thumbnail.book-default .caption h4 {
+  padding-left: 4px;
+  padding-right: 4px;
+  line-height: 14px;
+  font-size: 12px;
+}
+.thumbnail.related-default {
+  width: 102px;
+  /*height: @width * 1.463768115942029;*/
+}
+.thumbnail.related-default .caption h4 {
+  padding-left: 2px;
+  padding-right: 2px;
+  line-height: 12px;
+  font-size: 10px;
+}
+.book {
+  padding: 0;
+  margin-bottom: 1em;
+}
+.book .book-img {
+  float: left;
+  /*width: 40%;*/
+  margin-right: 5%;
+}
+.book .book-img img {
+  max-width: 102px;
+  height: 149px;
+}
+.book .book-desc {
+  overflow: hidden;
+}
+.book .book-desc .title {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+.book .book-desc .author {
+  font-size: 14px;
+  margin: 0 0 4px;
+}
+.book .book-desc .line {
+  font-size: 12px;
+  margin: 0 0 2px;
+  color: #999;
+}
+.book .book-space {
+  height: 12px;
+}
+span.information {
+  display: block;
+  color: #999;
+  font-size: 1em;
+  font-weight: normal;
+  margin-bottom: 2px;
+}
+/*# sourceMappingURL=librarian.css.map */
