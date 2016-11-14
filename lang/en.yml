@@ -1,0 +1,163 @@
+en:
+  LibrarianAdmin:
+    MENUTITLE: 'Library'
+  Book:
+    SINGULARNAME: 'Books'
+  BookCopy:
+    SINGULARNAME: 'Copies'
+  BookVolume:
+    SINGULARNAME: 'Volumes'
+  BookAuthor:
+    SINGULARNAME: 'Authors'
+  BookPublisher:
+    SINGULARNAME: 'Publishers'
+  BookCategory:
+    SINGULARNAME: 'Categories'
+  BookFormat:
+    SINGULARNAME: 'Book Formats'
+  BooksCatalog:
+    SINGULARNAME: 'Catalogs'
+  BookLoan:
+    SINGULARNAME: 'Loans'
+  BookLoanArchive:
+    SINGULARNAME: 'Loans Archive'
+  Patron:
+    SINGULARNAME: 'Patrons'
+  Librarian:
+    # Front End
+    TITLE: 'Title'
+    ADDRESS: 'Addess'
+    PHONE: 'Phone'
+    COMMA: ','
+    AND: 'and'
+    QUANTITY: 'Quantity'
+    OVERVIEW: 'Overview'
+    QUICK_OVERVIEW: 'Quick Overview'
+    QUICK_VIEW: 'Quick View'
+    ABOUT: 'About'
+    ALSO_READ: 'Read Also'
+    ADDITIONAL_INFORMATION: 'Additional Information'
+    # Search
+    SEARCH: 'Search'
+    SEARCH_QUERY: 'لقد قمت بالبحث عن &quot;{value}&quot'
+    SEARCH_NO_RESULTS: 'عذرا، لا يوجد أي نتائج للاستعلام الذي قمت به'
+    SEARCH_RESULTS: 'نتائج البحث'
+    # Catalog
+    CATALOG: 'Catalog'
+    CATALOGS: 'Catalogs'
+    CATALOG_TITLE: 'Catalog {value}'
+    VIEW_CATALOG: 'View Catalog'
+    NEW_ARRIVALS: 'New Arrivals'
+    IS_PUBLIC: 'Public'
+    # Book
+    BOOK: 'Book'
+    BOOKS: 'Books'
+    BOOK_TITLE: 'Book Title'
+    BOOK_DETAILS: 'Book Details'
+    NUMBER_OF_BOOKS: 'Number of Books'
+    NO_BOOKS: 'No Books'
+    ONE_BOOK: 'One Book'
+    TWO_BOOKS: 'Two Books'
+    BOOKS_COUNT: '{value} Books'
+    BOOK_OVERVIEW: 'Book Overview'
+    VIEW_BOOKS: 'View Book'
+    BOOKS_LIST: 'Books List'
+    RELATED_BOOKS: 'Related Books'
+    # Book Details
+    LANGUAGE: 'Language'
+    COVER_IMAGE: 'Cover Image'
+    ISBN: 'ISBN'
+    SUBJECT: 'Subject'
+    PUBLISH_YEAR: 'Publish Year'
+    # Book Copy
+    BOOKCOPY: 'Book Copy'
+    BOOK_COPIES: 'Book Copies'
+    NO_COPIES: 'No Copies'
+    ONE_COPY: 'One Copy'
+    TWO_COPIES: 'Two Copies'
+    COPIES_COUNT: '{value} Copies'
+    COPYIES: 'Copy(ies)'
+    COPY_DETAILS: 'Copy Details'
+    NUMBER_OF_COPIES: 'Number of Copies'
+    # Book Copy Details
+    BARCODE: 'Barcode'
+    SERIAL_NUMBER: 'Serial Number'
+    IS_REFERENCE: 'Reference?'
+    REFERENCE: 'Reference'
+    FORMAT: 'Format'
+    LOAN_PERIOD: 'Loan Period'
+    IS_OVERDUE: 'Is Overdue?'
+    OVERDUE: 'Overdue'
+    EDITION: 'Edition'
+    COLLECTION: 'Collection'
+    SHELF: 'Shelf'
+    # Volume
+    VOLUME: 'Volume'
+    BOOK_VOLUMES: 'Volumes'
+    VOLUME_DETAILS: 'Volume Details'
+    NUMBER_OF_VOLUMES: 'Number of Volumes'
+    NO_VOLUMES: 'No Volumes'
+    ONE_VOLUME: 'One Volume'
+    TWO_VOLUMES: 'Two Volumes'
+    VOLUMES_COUNT: '{value} Volumes'
+    VOLUME_NUMBER: 'Volume Number {value}'
+    TITLE_VOLUME_NUMBER: '{value1} ({value2})'
+    TITLE_VOLUME_FULL: '{value1} ({value2}) - {value3}'
+    VOLUME_INDEX: 'Volume Index'
+    CHECKED_IN: 'Available'
+    CHECKED_OUT: 'Loan'
+    # Volume Details
+    STATUS: 'Status'
+    # Author
+    AUTHOR: 'Author'
+    AUTHORS: 'Authors'
+    AUTHORS_NUM: '{value} Authors'
+    ORIGINAL_PUBLISH: 'Original Publish'
+    # Page
+    PAGE: 'Page'
+    PAGES: 'Page(s)'
+    NUMBER_OF_PAGES: 'Number of Pages'
+    LENGTH: 'Length'
+    PAGE_NUM: '{value} Page'
+    # Publisher 
+    PUBLISHER: 'Publisher'
+    PUBLISHERS: 'Publishers'
+    # Category
+    CATEGORIES: 'Categories'
+    # Authos Details
+    PREFIX: 'Prefix'
+    FIRSTNAME: 'Name'
+    LASTNAME: 'Last Name'
+    POSTFIX: 'Postfix'
+    NICKNAME: 'Nickname'
+    SURNAME: 'Surname'
+    BIOGRAPHY: 'Biography'
+    BIRTH_DATE: 'Birthdate'
+    BIRTH_YEAR: 'Birth Year'
+    DEATH_YEAR: 'Death Year'
+    PHOTO: 'Photo'
+    # Publisher
+    NAME: 'Name'
+    ADDRESS: 'Addess'
+    PHONE: 'Phone'
+    LOGO: 'Logo'
+    # Patron
+    PATRON_TITLE: 'Patron Name'
+    PATRON: 'Patron'
+    PATRONS: 'Patrons'
+    EMAIL: 'Email'
+    LOANS: 'Loans'
+    MAX_LOANS: 'Max Number of Loans'
+    LOANS_COUNT: 'Number of Loans'
+    LOAN_DATE: 'Loan Date'
+    LOAN_ARCHIVE: 'Loans Archive'
+    DUE_DATE: 'Due Date'
+    CHOOSE_PATRON: 'Choose Patron'
+    CHOOSE_BOOK: 'Choose Book'
+    LEND_BOOK: 'Lend Book'
+    RETURN_BOOK: 'Return Book'
+    CHOOSE_LOAN: 'Choose Loan'
+    LEND: 'Lend'
+    RETURN: 'Return'
+    NO_LENDED_BOOKS: 'No Lend Books'
+    
