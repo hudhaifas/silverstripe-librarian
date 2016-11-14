@@ -8,3 +8,5 @@
 if (!defined('LIBRARIAN_DIR')) {
     define('LIBRARIAN_DIR', ltrim(Director::makeRelative(realpath(__DIR__)), DIRECTORY_SEPARATOR));
 }
+
+LibrarianAdmin::add_extension('SubsiteMenuExtension');

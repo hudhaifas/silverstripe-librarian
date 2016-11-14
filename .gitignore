@@ -1,1 +1,3 @@
-/nbproject/private/
+# Ignore CSS Map files
+*.map
+

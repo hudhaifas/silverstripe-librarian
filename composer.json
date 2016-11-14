@@ -16,7 +16,9 @@
     },
     "require": {
         "silverstripe/cms": "~3.0",
-        "silverstripe/framework": "~3.0"
+        "silverstripe/framework": "~3.0",
+        "silverstripe/tagfield": "^1.0",
+        "gheggie/silverstripe-barcode": "@dev"
     },
     "extra": {
         "installer-name": "librarian"

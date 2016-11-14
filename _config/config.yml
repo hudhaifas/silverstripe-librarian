@@ -1,0 +1,29 @@
+---
+Name: librarian
+---
+LibraryObject:
+  groups:
+    - Librarian
+
+# Use with silverstripe/fluent 
+#Book:
+#  extensions:
+#    - FluentExtension
+#BookCopy:
+#  extensions:
+#    - FluentExtension
+#BookVolume:
+#  extensions:
+#    - FluentExtension
+#BooksCatalog:
+#  extensions:
+#    - FluentExtension
+#BookAuthor:
+#  extensions:
+#    - FluentExtension
+#BookPublisher:
+#  extensions:
+#    - FluentExtension
+#BookFormat:
+#  extensions:
+#    - FluentExtension
