@@ -1,5 +1,5 @@
-<ul class="book col-xs-12 col-sm-6 col-md-12">
-    <li class="book-img">
+<div class="book col-xs-12 col-sm-6 col-md-12">
+    <div class="book-img">
         <a href="$Link" title="$BookName">
             <div class="thumbnail text-center related-default">
                 <% if $BookCopy.Book.Cover %>
@@ -13,17 +13,13 @@
                 <% end_if %>
             </div>
         </a>
-    </li>
+    </div>
 
-    <li class="book-desc">
+    <div class="book-desc">
         <p class="title"><a href="$Link" title="$BookName">$BookName.LimitCharacters(30)</a></p>
-        <p class="author">$Author.Title</p>
+        <p class="author">$Author.Title.LimitCharacters(28)</p>
         <p class="line"><%t Librarian.VOLUME_NUMBER "Volume Number {value}" value=$TheIndex %></p>
-        <% if $Publisher && $Publisher.Name %>
-            <p class="line">$Publisher.Name</p>
-        <% end_if %>
+        <% if $Publisher && $Publisher.Name %><p class="line">$Publisher.Name</p><% end_if %>
         <% if $Length %><p class="line"><%t Librarian.LENGTH "Length" %>: $Length</p><% end_if %>
-    </li>
-
-    <div class="clearfix"> </div>
-</ul>
+    </div>
+</div>

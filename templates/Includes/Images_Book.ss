@@ -1,16 +1,11 @@
-<div class="labout volume-img-span">
-    <ul id="etalage">
-        <li>
-            <a href="#">
-                <% if $Cover %>
-                    <img class="etalage_thumb_image img-responsive" src="$Cover.PaddedImage(300, 400).URL" />
-                    <img class="etalage_source_image img-responsive" src="$Cover.URL" title="" />
-                <% else %>
-                    <img class="etalage_thumb_image img-responsive" src="librarian/images/default-book.jpg"/>
-                    <img class="etalage_source_image img-responsive" src="librarian/images/default-book.jpg" title="" />
-                <% end_if %>
-            </a>
-        </li>
-    </ul>
-    <div class="clearfix"></div>
+<div class="thumbnail text-center book-default">
+    <% if $CoverImage %>
+    <img class="img-responsive" src="$CoverImage.PaddedImage(280, 410).URL" />
+    <% else %>
+    <img alt="" class="img-responsive" src= "librarian/images/book-cover.jpg" />
+
+    <div class="caption" style="">
+        <h4>$Up.Title.LimitCharacters(70)</h4>
+    </div>
+    <% end_if %>
 </div>

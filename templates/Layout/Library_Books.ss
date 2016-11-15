@@ -1,6 +1,6 @@
 <% include Menu_Side %>
 
-<article class="col-md-9">
+<article class="col-md-8">
 
     <div class="row">
         $SearchBook
@@ -12,6 +12,19 @@
     </div>
     <% end_if %>
 
+    <% if $Author %>
+    <div class="row">
+        <% if $Author.Biography %>
+        <a data-toggle="collapse" data-target="#biography">$Author.FullName</a>
+        <div id="biography" class="collapse justify">
+            $Author.Biography
+        </div>
+        <% else %>
+        $Author.FullName
+        <% end_if %>
+    </div>
+    <% end_if %>
+    
     <div class="row">
         <% if $Results %>
             <% loop $Results %>

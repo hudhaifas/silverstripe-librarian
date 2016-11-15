@@ -1,0 +1,11 @@
+.thumbnail .caption {
+  left: auto;
+  right: 0;
+}
+.book .book-img {
+  float: right;
+  /*width: 40%;*/
+  margin-left: 5%;
+  margin-right: auto;
+}
+/*# sourceMappingURL=librarian-rtl.css.map */

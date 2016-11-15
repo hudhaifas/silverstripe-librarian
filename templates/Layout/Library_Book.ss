@@ -35,17 +35,7 @@
         <% end_if %>
 
         <div class="col-lg-3 col-sm-3 col-xs-4 col-xxs-12">
-            <div class="thumbnail text-center book-default">
-                <% if $CoverImage %>
-                <img class="img-responsive" src="$CoverImage.PaddedImage(280, 410).URL" />
-                <% else %>
-                <img alt="" class="img-responsive" src= "librarian/images/book-cover.jpg" />
-
-                <div class="caption" style="">
-                    <h4>$Up.Title.LimitCharacters(70)</h4>
-                </div>
-                <% end_if %>
-            </div>
+            <% include Images_Book %>
         </div>
 
         <div class="col-lg-9 col-sm-9 col-xs-8  col-xxs-12">
@@ -101,7 +91,7 @@
 
 <div class="col-md-4 col-lg-4">
     <% if $Related %>
-        <h3><%t Librarian.ALSO_READ "Also Read" %></h3>
+        <h4><%t Librarian.ALSO_READ "Also Read" %></h4>
 
         <% loop $Related.Limit(4) %>
             <% include Related_Book %>

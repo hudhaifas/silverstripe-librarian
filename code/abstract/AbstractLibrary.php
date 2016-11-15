@@ -97,7 +97,6 @@ class AbstractLibrary_Controller
     private static $allowed_actions = array(
         'books',
         'book',
-        'bookcopy',
         'bookvolume',
         // Search Actions
         'SearchBook',
@@ -113,8 +112,11 @@ class AbstractLibrary_Controller
     public function init() {
         parent::init();
 
-        Requirements::css("librarian/css/bootstrap.css");
+//        Requirements::css("librarian/css/bootstrap.css");
         Requirements::css("librarian/css/librarian.css");
+        if ($this->isRTL()) {
+            Requirements::css("librarian/css/librarian-rtl.css");
+        }
     }
 
     public function getDBVersion() {
@@ -200,6 +202,8 @@ class AbstractLibrary_Controller
         $book = Book::get()->byID($id);
 
         if ($book) {
+            $this->etalage(140, 205);
+
             return $this
                             ->customise(array(
                                 'Book' => $book,
@@ -234,6 +238,8 @@ class AbstractLibrary_Controller
         $volume = BookVolume::get()->byID($id);
 
         if ($volume) {
+            $this->etalage(280, 410);
+
             return $this
                             ->customise(array(
                                 'Volume' => $volume,
@@ -341,6 +347,24 @@ class AbstractLibrary_Controller
 
     public function getBookCategories($BookID) {
         return Book::get_by_id($BookID)->Categories();
+    }
+
+    private function etalage($w, $h) {
+        $dir = $this->isRTL() ? 'right' : 'left';
+
+        Requirements::customScript(<<<JS
+            jQuery(document).ready(function ($) {
+                $('#etalage, .etalager').etalage({
+                    thumb_image_width: $w,
+                    thumb_image_height: $h,
+                    source_image_width: 900,
+                    source_image_height: 1200,
+                    show_hint: true,
+                    align: "$dir",
+                });
+            });
+JS
+        );
     }
 
 }
