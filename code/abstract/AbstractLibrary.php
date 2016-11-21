@@ -112,7 +112,6 @@ class AbstractLibrary_Controller
     public function init() {
         parent::init();
 
-//        Requirements::css("librarian/css/bootstrap.css");
         Requirements::css("librarian/css/librarian.css");
         if ($this->isRTL()) {
             Requirements::css("librarian/css/librarian-rtl.css");
