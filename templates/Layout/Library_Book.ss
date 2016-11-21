@@ -28,7 +28,7 @@
     <% if BookCopies %>
     <% loop BookCopies %>
     <div class="row">
-        <% if $Title && $Up.Title != $Title %>
+        <% if $Title && $BookName != $Title %>
         <div class="col-md-12">
             <h4>$Title</h4>
         </div>
