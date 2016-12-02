@@ -72,7 +72,7 @@ class BookVolume
     );
     private static $summary_fields = array(
         'SerialNumber',
-        'BookCopy.Title',
+        'Title',
         'TheIndex',
         'BookCopy.Publisher.Name',
         'Length',
@@ -99,6 +99,10 @@ class BookVolume
     }
 
     protected function onBeforeWrite() {
+        if (!$this->BookCopy()->exists()) {
+            return;
+        }
+
         parent::onBeforeWrite();
 
         if (!$this->SerialNumber) {
@@ -189,16 +193,7 @@ class BookVolume
     }
 
     public function getTitle() {
-        if ($this->BookCopy()) {
-            return _t('Librarian.TITLE_VOLUME_FULL', "{value1} ({value2}) - {value3}", array(
-                'value1' => $this->getSimpleTitle(),
-                'value2' => $this->TheIndex,
-                'value3' => $this->BookCopy()->Publisher()->Name,
-                    )
-            );
-        } else {
-            return $this->BookTitle;
-        }
+        return $this->getFullTitle();
     }
 
     /// Book Volume ///
@@ -237,23 +232,25 @@ class BookVolume
     }
 
     public function getSimpleTitle() {
-        return ($title = $this->getBookTitle()) ? $title : $this->getBookName();
+        if ($title = $this->getBookTitle()) {
+            return $title;
+        } else if ($title = $this->getBookName()) {
+            return $title;
+        }
+
+        return $this->BookTitle;
     }
 
     public function getShortTitle() {
-        if ($this->BookCopy()) {
-            return _t('Librarian.TITLE_VOLUME_NUMBER', "{value1} ({value2})", array(
-                'value1' => $this->getSimpleTitle(),
-                'value2' => $this->TheIndex,
-                    )
-            );
-        } else {
-            return $this->BookTitle;
-        }
+        return _t('Librarian.TITLE_VOLUME_NUMBER', "{value1} ({value2})", array(
+            'value1' => $this->getSimpleTitle(),
+            'value2' => $this->TheIndex,
+                )
+        );
     }
 
     public function getFullTitle() {
-        if ($this->BookCopy()) {
+        if ($this->BookCopy()->Publisher()->exists()) {
             return _t('Librarian.TITLE_VOLUME_FULL', "{value1} ({value2}) - {value3}", array(
                 'value1' => $this->getSimpleTitle(),
                 'value2' => $this->TheIndex,
@@ -261,7 +258,7 @@ class BookVolume
                     )
             );
         } else {
-            return $this->BookTitle;
+            return $this->getShortTitle();
         }
     }
 

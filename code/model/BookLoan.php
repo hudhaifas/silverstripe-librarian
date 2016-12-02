@@ -58,9 +58,9 @@ class BookLoan
     );
     private static $summary_fields = array(
         'Patron.Title',
-        'Book.SerialNumber',
-        'Book.Title',
+        'Book.getSimpleTitle',
         'Book.TheIndex',
+        'Book.SerialNumber',
         'LoanDate',
         'DueDate',
     );
@@ -111,8 +111,8 @@ class BookLoan
         $labels['Patron.Title'] = _t('Librarian.PATRON_TITLE', "Patron Title");
         $labels['Patron'] = _t('Librarian.PATRON', "Patron Title");
         $labels['Book'] = _t('Librarian.BOOK', "SerialNumber");
-        $labels['Book.SerialNumber'] = _t('Librarian.BARCODE', "SerialNumber");
-        $labels['Book.Title'] = _t('Librarian.BOOK_TITLE', 'Title');
+        $labels['Book.SerialNumber'] = _t('Librarian.SERIAL_NUMBER', "SerialNumber");
+        $labels['Book.getSimpleTitle'] = _t('Librarian.BOOK_TITLE', 'Title');
         $labels['Book.TheIndex'] = _t('Librarian.VOLUME_INDEX', "Volume Index");
 
         return $labels;
@@ -126,12 +126,16 @@ class BookLoan
                 return;
             }
 
-            // Explicitly define a dropdown list
+            // Explicitly define the dropdown lists
             $volumesList = BookVolume::get()->map()->toArray();
             $volumesSelect = DropdownField::create('BookID', 'Book')->setSource($volumesList);
-
             $fields->replaceField('BookID', $volumesSelect);
 
+            $patronsList = Patron::get()->map()->toArray();
+            $patronsSelect = DropdownField::create('PatronID', 'Patron')->setSource($patronsList);
+            $fields->replaceField('PatronID', $patronsSelect);
+
+            // Reorder fields
             $self->reorderField($fields, 'PatronID', 'Root.Main', 'Root.Main');
             $self->reorderField($fields, 'BookID', 'Root.Main', 'Root.Main');
 
