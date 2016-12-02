@@ -39,7 +39,7 @@ class BookAuthor
         'Postfix' => 'Varchar(255)',
         'NickName' => 'Varchar(255)',
         'SurName' => 'Varchar(255)',
-        'Biography' => 'HTMLText',
+        'Biography' => 'Text',
         'BirthYear' => 'Int',
         'DeathYear' => 'Int',
     );
