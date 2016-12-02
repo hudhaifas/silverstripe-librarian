@@ -117,7 +117,6 @@ class BookAuthor
                 $holder->addExtraClass('custom-summary');
                 $fields->addFieldToTab('Root.Main', $holder);
             }
-
         });
 
         $fields = parent::getCMSFields();
@@ -169,18 +168,18 @@ class BookAuthor
         $name = '';
 
         if ($this->SurName) {
-            $name .= ' (' . $this->SurName . ')';
+            $name .= '(' . $this->SurName . ')';
         }
 
         if ($this->Prefix) {
-            $name .= $this->Prefix . ' ';
+            $name .= ' ' . $this->Prefix;
         }
 
         if ($this->NickName) {
-            $name .= $this->NickName . ' ';
+            $name .= ' ' . $this->NickName;
         }
 
-        $name .= $this->FirstName . ' ' . $this->LastName;
+        $name .= ' ' . $this->FirstName . ' ' . $this->LastName;
 
         if ($this->Postfix) {
             $name .= ' ' . $this->Postfix;
