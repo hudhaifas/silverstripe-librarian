@@ -124,6 +124,10 @@ class BookAuthor
         foreach ($trim as $field) {
             $this->trim($field);
         }
+
+        if ($this->Biography) {
+            $this->Biography = strip_tags($this->Biography);
+        }
     }
 
     function Link($action = null) {

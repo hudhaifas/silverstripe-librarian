@@ -181,6 +181,9 @@ class Book
             $this->BookCopies()->add($copy);
         }
 
+        if ($this->Overview) {
+            $this->Overview = strip_tags($this->Overview);
+        }
         // TODO: generate default Index number
     }
 
