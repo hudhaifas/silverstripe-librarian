@@ -101,22 +101,8 @@ class BookAuthor
             $this->reorderField($fields, 'Postfix', 'Root.Main', 'Root.Main');
             $this->reorderField($fields, 'BirthYear', 'Root.Main', 'Root.Main');
             $this->reorderField($fields, 'DeathYear', 'Root.Main', 'Root.Main');
+            $this->reorderField($fields, 'Biography', 'Root.Main', 'Root.Main');
             $this->reorderField($fields, 'Photo', 'Root.Main', 'Root.Main');
-
-            if ($field = $fields->fieldByName('Root.Main.Biography')) {
-                $fields->removeFieldFromTab('Root.Main', 'Biography');
-//                $fields->addFieldToTab('Root.Main', $field);
-                $holder = ToggleCompositeField::create(
-                                'CustomOverview', //
-                                _t('Librarian.OVERVIEW', 'Overview'), //
-                                array(
-                            $field,
-                                )
-                );
-                $holder->setHeadingLevel(4);
-                $holder->addExtraClass('custom-summary');
-                $fields->addFieldToTab('Root.Main', $holder);
-            }
         });
 
         $fields = parent::getCMSFields();
