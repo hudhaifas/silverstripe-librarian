@@ -69,7 +69,7 @@ class Book
     private static $db = array(
         'Name' => 'Varchar(255)',
         'Subject' => 'Varchar(255)',
-        'Overview' => 'HTMLText',
+        'Overview' => 'Text',
         'OriginalPublish' => 'Int', // The year of authoring the first
         'Language' => "Enum('العربية, English', 'العربية')",
     );

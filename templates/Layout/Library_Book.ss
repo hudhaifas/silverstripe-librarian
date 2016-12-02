@@ -81,7 +81,7 @@
         <div>
             <h4><%t Librarian.BOOK_OVERVIEW "Book Overview" %></h4>
 
-            <div class="resp-tabs-container">
+            <div class="resp-tabs-container justify">
                 $Overview
             </div>
         </div>
