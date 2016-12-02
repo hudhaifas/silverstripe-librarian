@@ -36,7 +36,8 @@ class SaveTask
     protected $description = 'Resave data objects to call onBeforeWrite';
 
     public function run($request) {
-        $objects = DataObject::get('BookVolume');
+        $clazz = $request->getVar('c');
+        $objects = DataObject::get($clazz);
 
         foreach ($objects as $object) {
             echo $object->getTitle() . "<br />";
