@@ -126,6 +126,12 @@ class BookLoan
                 return;
             }
 
+            // Explicitly define a dropdown list
+            $volumesList = BookVolume::get()->map()->toArray();
+            $volumesSelect = DropdownField::create('BookID', 'Book')->setSource($volumesList);
+
+            $fields->replaceField('BookID', $volumesSelect);
+
             $self->reorderField($fields, 'PatronID', 'Root.Main', 'Root.Main');
             $self->reorderField($fields, 'BookID', 'Root.Main', 'Root.Main');
 
