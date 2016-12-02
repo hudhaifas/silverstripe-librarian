@@ -136,22 +136,7 @@ class Book
                 $fields->removeFieldFromTab('Root.Main', 'Cover');
                 $fields->addFieldToTab('Root.Main', $field);
             }
-
-            if ($field = $fields->fieldByName('Root.Main.Overview')) {
-                $field->setRows(7);
-                $fields->removeFieldFromTab('Root.Main', 'Overview');
-//                $fields->addFieldToTab('Root.Main', $overviewField);
-                $overviewHolder = ToggleCompositeField::create(
-                                'CustomOverview', //
-                                _t('Librarian.OVERVIEW', 'Overview'), //
-                                array(
-                            $field,
-                                )
-                );
-                $overviewHolder->setHeadingLevel(4);
-                $overviewHolder->addExtraClass('custom-summary');
-                $fields->addFieldToTab('Root.Main', $overviewHolder);
-            }
+            $this->reorderField($fields, 'Overview', 'Root.Main', 'Root.Main');
 
             $this->reorderField($fields, 'Language', 'Root.Main', 'Root.Details');
             $this->reorderField($fields, 'OriginalPublish', 'Root.Main', 'Root.Details');
