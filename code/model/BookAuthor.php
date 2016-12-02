@@ -100,6 +100,8 @@ class BookAuthor
             $this->reorderField($fields, 'SurName', 'Root.Main', 'Root.Main');
             $this->reorderField($fields, 'Postfix', 'Root.Main', 'Root.Main');
             $this->reorderField($fields, 'Photo', 'Root.Main', 'Root.Main');
+            $this->reorderField($fields, 'BirthYear', 'Root.Main', 'Root.Main');
+            $this->reorderField($fields, 'DeathYear', 'Root.Main', 'Root.Main');
 
             if ($field = $fields->fieldByName('Root.Main.Biography')) {
                 $fields->removeFieldFromTab('Root.Main', 'Biography');
@@ -116,8 +118,6 @@ class BookAuthor
                 $fields->addFieldToTab('Root.Main', $holder);
             }
 
-            $this->reorderField($fields, 'BirthYear', 'Root.Main', 'Root.Main');
-            $this->reorderField($fields, 'DeathYear', 'Root.Main', 'Root.Main');
         });
 
         $fields = parent::getCMSFields();
