@@ -1,4 +1,4 @@
-$DBVersion
+<% if $LatestBooks.Count %>
 <article class="conatiner row">
     <a href="$Link(books)"><h2><%t Librarian.NEW_ARRIVALS 'New Arrivals' %></h2></a>
 
@@ -20,6 +20,7 @@ $DBVersion
         <% end_loop %>
     </div>
 </article>
+<% end_if %>
 
 <% loop PublicCatalogs %>
 <article class="conatiner row">

@@ -111,6 +111,7 @@ class BookAuthor
     }
 
     protected function onBeforeWrite() {
+        
         parent::onBeforeWrite();
         $trim = array(
             'Prefix',

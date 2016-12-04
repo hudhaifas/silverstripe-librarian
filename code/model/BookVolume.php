@@ -99,10 +99,6 @@ class BookVolume
     }
 
     protected function onBeforeWrite() {
-        if (!$this->BookCopy()->exists()) {
-            return;
-        }
-
         parent::onBeforeWrite();
 
         if (!$this->SerialNumber) {
@@ -115,7 +111,7 @@ class BookVolume
             $this->BarcodeID = LibrarianHelper::generate_barcode($this->SerialNumber);
         }
 
-        if (!$this->BookTitle) {
+        if (!$this->BookTitle && $this->BookCopy()->exists()) {
             $this->BookTitle = $this->BookCopy()->Title;
         }
     }
