@@ -76,19 +76,24 @@ class BooksCatalog
         $self = & $this;
         $this->beforeUpdateCMSFields(function ($fields) use ($self) {
 
-            $field = ListboxField::create(
-                            'BookVolumes', //
-                            _t('Librarian.BOOK_VOLUMES', 'Book Volumes'), //
-                            BookVolume::get()->map()->toArray()
-                    )->setMultiple(true);
+//            $field = ListboxField::create(
+//                            'BookVolumes', //
+//                            'BookVolumes', //
+//                            BookVolume::get()->map()->toArray()
+//                    )->setMultiple(true);
+
+            $field = new CheckboxSetField(
+                    'BookVolumes', //
+                    'BookVolumes', //
+                    BookVolume::get()->map()->toArray() //
+            );
+
 
             $fields->removeFieldFromTab('Root', 'BookVolumes');
             $fields->addFieldToTab('Root.Main', $field);
         });
 
         $fields = parent::getCMSFields();
-
-        $fields->fieldByName('Root')->setTemplate('TabSet_holder');
 
         return $fields;
     }

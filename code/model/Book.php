@@ -118,6 +118,7 @@ class Book
         $labels['Subject'] = _t('Librarian.SUBJECT', 'Subject');
         $labels['ThumbCover'] = _t('Librarian.COVER_IMAGE', 'Cover Image');
         $labels['Title'] = _t('Librarian.BOOK_TITLE', 'Book Title');
+        $labels['Categories'] = _t('Librarian.CATEGORIES', 'Categories');
 
         return $labels;
     }
@@ -145,7 +146,10 @@ class Book
             $fields->removeFieldFromTab('Root', 'Authors');
 
             $categoryField = TagField::create(
-                            'Categories', _t('Librarian.CATEGORIES', 'Categories'), BookCategory::get(), $self->Categories()
+                            'Categories', //
+                            'Categories', //
+                            BookCategory::get(), //
+                            $self->Categories()
             );
             $fields->addFieldToTab('Root.Details', $categoryField);
 
