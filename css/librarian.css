@@ -87,8 +87,7 @@ a.thumbnail.active {
   font-size: 18px;
 }
 .thumbnail.carousel-default {
-  width: 280px;
-  /*height: @width * 1.463768115942029;*/
+  /*.image-size(280px);*/
 }
 .thumbnail.carousel-default .caption h4 {
   padding-left: 20px;
