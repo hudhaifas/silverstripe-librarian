@@ -328,8 +328,12 @@ class AbstractLibrary_Controller
         return BookPublisher::get_by_id($PublisherID)->Books();
     }
 
-    public function getBooks($filters = array()) {
-        return Book::get()->filter($filters);
+    public function getBooksList($filters = array()) {
+        return DataObject::get('Book')->filter($filters);
+    }
+
+    public function getVolumesList($filters = array()) {
+        return DataObject::get('BookVolume')->filter($filters);
     }
 
     public function getLatestBooks() {
