@@ -37,19 +37,28 @@ class ExifTask
     private $quality = 85;
 
     public function run($request) {
-        echo 'Task started..';
-        $dir = BASE_PATH . '/assets/librarian';
+        $subdir = $request->getVar('dir');
+        $dir = BASE_PATH . '/assets/' . $subdir;
+
+        $this->fixDir($dir);
+    }
+
+    function fixDir($dir, $space = '') {
         $files = scandir($dir);
+        echo($space . 'Dir: ' . $dir . '<br/>');
 
         foreach ($files as $file) {
             $path = $dir . '/' . $file;
-            if ($this->isImage($file)) {
-                print_r($file);
-                $this->fixOrientation($path);
+
+            if (!in_array($file, array(".", ".."))) {
+                if ($this->isImage($file)) {
+                    echo($space . '&emsp;' . $file);
+                    $this->fixOrientation($path);
+                } else if (is_dir($dir . DIRECTORY_SEPARATOR . $file)) {
+                    $this->fixDir($dir . DIRECTORY_SEPARATOR . $file, '&emsp;');
+                }
             }
         }
-        echo 'Task finished..';
-//        print_r($files);
     }
 
     function isImage($file) {
@@ -61,7 +70,7 @@ class ExifTask
     /**
      * Mobile image correction
      */
-    public function fixOrientation($imagePath) {
+    function fixOrientation($imagePath) {
         //Read the JPEG image Exif data to get the Orientation value
         $exif = exif_read_data($imagePath);
         $orientation = @$exif['IFD0']['Orientation'];
@@ -75,9 +84,9 @@ class ExifTask
             return;
         }
 
-        print_r(', orientation: ' . $orientation . '<br/>');
+        echo(', orientation: ' . $orientation . '<br/>');
         if (!$orientation) {
-            print_r('Write image file..');
+//            echo('Write image file..');
             imagejpeg($source, $imagePath, $this->quality);  //save output to file system at full quality
             return;
         }
@@ -100,7 +109,7 @@ class ExifTask
                 break;
         }
 
-        print_r('Write image file..');
+        echo('Write image file..');
         imagejpeg($modifiedImage, $imagePath, $this->quality);  //save output to file system at full quality
     }
 
