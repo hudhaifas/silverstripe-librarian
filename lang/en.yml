@@ -40,8 +40,8 @@ en:
     # Search
     SEARCH: 'Search'
     SEARCH_QUERY: 'لقد قمت بالبحث عن &quot;{value}&quot'
-    SEARCH_NO_RESULTS: 'عذرا، لا يوجد أي نتائج للاستعلام الذي قمت به'
-    SEARCH_RESULTS: 'نتائج البحث'
+    SEARCH_NO_RESULTS: 'Sorry, your search query did not return any results.'
+    SEARCH_RESULTS: 'Search Results'
     # Catalog
     CATALOG: 'Catalog'
     CATALOGS: 'Catalogs'
