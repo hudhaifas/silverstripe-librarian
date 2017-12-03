@@ -32,7 +32,7 @@
                 <a href="$Link">
                     <div class="thumbnail text-center books-default">
                         <% if $Cover %>
-                        <img src="$Cover.PaddedImage(207,303).URL" alt="image" class="img-responsive zoom-img" />
+                        <img src="$Cover.PaddedImage(207,303).Watermark.URL" alt="image" class="img-responsive zoom-img" />
                         <% else %>
                         <img alt="" class="img-responsive" src= "librarian/images/book-cover.jpg" />
 

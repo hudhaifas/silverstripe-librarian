@@ -1,6 +1,6 @@
 <div class="thumbnail text-center book-default">
     <% if $CoverImage %>
-    <img class="img-responsive" src="$CoverImage.PaddedImage(280, 410).URL" />
+    <img class="img-responsive" src="$CoverImage.PaddedImage(280, 410).Watermark.URL" />
     <% else %>
     <img alt="" class="img-responsive" src= "librarian/images/book-cover.jpg" />
 

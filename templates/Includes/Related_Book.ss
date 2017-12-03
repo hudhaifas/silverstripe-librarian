@@ -3,7 +3,7 @@
         <a href="$Link" title="$Title">
             <div class="thumbnail text-center related-default">
                 <% if $Cover %>
-                <img src="$Cover.SetSize(102,149).URL" class="img-responsive related-img" alt="" />
+                <img src="$Cover.SetSize(102,149).Watermark.URL" class="img-responsive related-img" alt="" />
                 <% else %>
                 <img alt="" class="img-responsive" src= "librarian/images/book-cover.jpg" />
 

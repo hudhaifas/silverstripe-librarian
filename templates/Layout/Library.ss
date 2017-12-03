@@ -7,7 +7,7 @@
         <div class="col-md-3">
             <a href="$Link" class="thumbnail text-center">
                 <% if $Cover %>
-                <img src="$Cover.SetSize(280,410).URL" class="img-responsive related-img" alt="" />
+                <img src="$Cover.SetSize(280,410).Watermark.URL" class="img-responsive related-img" alt="" />
                 <% else %>
                 <img alt="" class="img-responsive" src= "librarian/images/book-cover.jpg" />
 
@@ -31,7 +31,7 @@
         <div class="col-md-3">
             <a href="$Link" class="thumbnail text-center">
                 <% if $BookCopy.Book.Cover %>
-                <img src="$BookCopy.Book.Cover.SetSize(280,410).URL" class="img-responsive related-img" alt="" />
+                <img src="$BookCopy.Book.Cover.SetSize(280,410).Watermark.URL" class="img-responsive related-img" alt="" />
                 <% else %>
                 <img alt="" class="img-responsive" src= "librarian/images/book-cover.jpg" />
 

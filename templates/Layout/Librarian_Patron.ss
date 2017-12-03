@@ -26,7 +26,7 @@
                     <td>
                         <div class="thumbnail text-center related-default">
                             <% if $BookCopy.CoverImage %>
-                            <img class="img-responsive" src="$BookCopy.CoverImage.PaddedImage(280, 410).URL" />
+                            <img class="img-responsive" src="$BookCopy.CoverImage.PaddedImage(280, 410).Watermark.URL" />
                             <% else %>
                             <img class="img-responsive" src= "librarian/images/book-cover.jpg" />
 
