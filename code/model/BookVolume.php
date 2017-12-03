@@ -341,7 +341,7 @@ class BookVolume
             $schema['numberOfPages'] = $this->Length;
         }
 
-        if ($this->getAuthor()->exists()) {
+        if ($this->getAuthor()) {
             $schema['author'] = array();
             $schema['author']['@type'] = "Person";
             $schema['author']['name'] = $this->getAuthor()->getTitle();
