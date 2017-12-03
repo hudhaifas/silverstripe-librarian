@@ -1,4 +1,8 @@
 <% with Volume %>
+<script type="application/ld+json">
+    $ObjectRichSnippets
+</script>
+
 <div class="col-md-9">
     <div class="row">
         <div class="col-lg-5 col-md-6 col-xs-12">

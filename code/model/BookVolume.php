@@ -319,4 +319,59 @@ class BookVolume
         return $this->BookCopy()->getAuthor();
     }
 
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        $schema = array();
+
+        $schema['@context'] = "http://schema.org";
+        $schema['@type'] = "Book";
+        $schema['@id'] = "#record";
+        $schema['image'] = $this->BookCopy()->getCoverImage()->URL;
+        $schema['name'] = $this->getTitle();
+
+        if ($this->getISBN()) {
+            $schema['isbn'] = $this->getISBN();
+        }
+
+        if ($this->getEdition()) {
+            $schema['bookEdition'] = $this->getEdition();
+        }
+
+        if ($this->Length) {
+            $schema['numberOfPages'] = $this->Length;
+        }
+
+        if ($this->getAuthor()->exists()) {
+            $schema['author'] = array();
+            $schema['author']['@type'] = "Person";
+            $schema['author']['name'] = $this->getAuthor()->getTitle();
+        }
+
+        if ($this->getPublishYear()) {
+            $schema['datePublished'] = $this->getPublishYear();
+        }
+
+        if ($this->getPublisher()->exists()) {
+            $schema['publisher'] = array();
+            $schema['publisher']['@type'] = "Organization";
+            $schema['publisher']['name'] = $this->getPublisher()->getTitle();
+            $schema['publisher']['logo'] = $this->getPublisher()->Logo()->URL;
+            $schema['publisher']['location'] = $this->getPublisher()->Address;
+            $schema['publisher']['telephone'] = $this->getPublisher()->Phone;
+        }
+
+        $schema['offers'] = array();
+        $schema['offers']['@type'] = "Offer";
+        $schema['offers']['availability'] = $this->isAvailable() ? "http://schema.org/InStock" : "http://schema.org/OutOfStock";
+        $schema['offers']['serialNumber'] = $this->SerialNumber;
+        $schema['offers']['offeredBy'] = array();
+        $schema['offers']['offeredBy']['@type'] = "Library";
+        $schema['offers']['offeredBy']['@id'] = Director::BaseURL();
+        $schema['offers']['offeredBy']['name'] = SiteConfig::current_site_config()->Title;
+        $schema['offers']['itemOffered'] = "#record";
+
+//        return json_encode($schema, JSON_UNESCAPED_UNICODE);
+        return Convert::array2json($schema);
+    }
+
 }
