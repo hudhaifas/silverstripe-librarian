@@ -355,8 +355,15 @@ class BookVolume
             $schema['publisher'] = array();
             $schema['publisher']['@type'] = "Organization";
             $schema['publisher']['name'] = $this->getPublisher()->getTitle();
-            $schema['publisher']['logo'] = $this->getPublisher()->Logo()->URL;
-            $schema['publisher']['location'] = $this->getPublisher()->Address;
+            if ($this->getPublisher()->Logo()->exists()) {
+                $schema['publisher']['logo'] = $this->getPublisher()->Logo()->URL;
+            }
+
+            if ($this->getPublisher()->Address) {
+                $schema['publisher']['address']['@type'] = "PostalAddress";
+                $schema['publisher']['address']['streetAddress'] = $this->getPublisher()->Address;
+            }
+
             $schema['publisher']['telephone'] = $this->getPublisher()->Phone;
         }
 
@@ -368,6 +375,7 @@ class BookVolume
         $schema['offers']['offeredBy']['@type'] = "Library";
         $schema['offers']['offeredBy']['@id'] = Director::BaseURL();
         $schema['offers']['offeredBy']['name'] = SiteConfig::current_site_config()->Title;
+        $schema['offers']['offeredBy']['image'] = THEMES_DIR . "/" . SiteConfig::current_site_config()->Theme . "/images/favicon.png";
         $schema['offers']['itemOffered'] = "#record";
 
 //        return json_encode($schema, JSON_UNESCAPED_UNICODE);
