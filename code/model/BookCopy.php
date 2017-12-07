@@ -239,4 +239,54 @@ class BookCopy
         return $this->Book()->getAuthor();
     }
 
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        $schema = array();
+
+        $schema['@context'] = "http://schema.org";
+        $schema['@type'] = "Book";
+        if ($this->ISBN) {
+            $schema['isbn'] = $this->ISBN;
+        }
+
+        if ($this->Edition) {
+            $schema['bookEdition'] = $this->Edition;
+        }
+
+        if ($this->PublishYear) {
+            $schema['datePublished'] = $this->PublishYear;
+        }
+
+        if ($this->getPublisher()->exists()) {
+            $schema['publisher'] = array();
+            $schema['publisher']['@type'] = "Organization";
+            $schema['publisher']['name'] = $this->getPublisher()->getTitle();
+            if ($this->getPublisher()->Logo()->exists()) {
+                $schema['publisher']['logo'] = $this->getPublisher()->Logo()->URL;
+            }
+
+            if ($this->getPublisher()->Address) {
+                $schema['publisher']['address']['@type'] = "PostalAddress";
+                $schema['publisher']['address']['streetAddress'] = $this->getPublisher()->Address;
+            }
+
+            $schema['publisher']['telephone'] = $this->getPublisher()->Phone;
+        }
+
+        switch ($this->Format()->Title) {
+            case 'Hardcover':
+                $schema['bookFormat'] = "http://schema.org/Hardcover";
+                break;
+
+            case 'Paperback':
+                $schema['bookFormat'] = "http://schema.org/Hardcover";
+                break;
+
+            default:
+                break;
+        }
+
+        return $schema;
+    }
+
 }

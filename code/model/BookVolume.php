@@ -326,7 +326,7 @@ class BookVolume
         $schema['@context'] = "http://schema.org";
         $schema['@type'] = "Book";
         $schema['@id'] = "#record";
-        $schema['image'] = $this->BookCopy()->getCoverImage()->URL;
+        $schema['image'] = Director::absoluteURL($this->BookCopy()->getCoverImage()->URL);
         $schema['name'] = $this->getTitle();
 
         if ($this->getISBN()) {
@@ -356,7 +356,7 @@ class BookVolume
             $schema['publisher']['@type'] = "Organization";
             $schema['publisher']['name'] = $this->getPublisher()->getTitle();
             if ($this->getPublisher()->Logo()->exists()) {
-                $schema['publisher']['logo'] = $this->getPublisher()->Logo()->URL;
+                $schema['publisher']['logo'] = Director::absoluteURL($this->getPublisher()->Logo()->URL);
             }
 
             if ($this->getPublisher()->Address) {
@@ -375,7 +375,7 @@ class BookVolume
         $schema['offers']['offeredBy']['@type'] = "Library";
         $schema['offers']['offeredBy']['@id'] = Director::BaseURL();
         $schema['offers']['offeredBy']['name'] = SiteConfig::current_site_config()->Title;
-        $schema['offers']['offeredBy']['image'] = THEMES_DIR . "/" . SiteConfig::current_site_config()->Theme . "/images/favicon.png";
+        $schema['offers']['offeredBy']['image'] = Director::absoluteURL(THEMES_DIR . "/" . SiteConfig::current_site_config()->Theme . "/images/favicon.png");
         $schema['offers']['itemOffered'] = "#record";
 
 //        return json_encode($schema, JSON_UNESCAPED_UNICODE);

@@ -268,4 +268,29 @@ class Book
         return $this->Cover()->CMSThumbnail();
     }
 
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        $schema = array();
+
+        $schema['@context'] = "http://schema.org";
+        $schema['@type'] = "Book";
+        $schema['@id'] = "#record";
+        $schema['name'] = $this->getTitle();
+        $schema['url'] = Director::absoluteURL($this->Link());
+        $schema['image'] = Director::absoluteURL($this->Cover()->URL);
+
+        if ($this->getAuthor()) {
+            $schema['author'] = array();
+            $schema['author']['@type'] = "Person";
+            $schema['author']['name'] = $this->getAuthor()->getTitle();
+        }
+
+        foreach ($this->BookCopies() as $copy) {
+            $schema['workExample'] = $copy->getObjectRichSnippets();
+        }
+
+//        return json_encode($schema, JSON_UNESCAPED_UNICODE);
+        return Convert::array2json($schema);
+    }
+
 }
