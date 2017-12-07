@@ -1,4 +1,8 @@
 <% with Book %>
+<script type="application/ld+json">
+    $ObjectRichSnippets
+</script>
+
 <div class="col-md-8 col-lg-8">
     <div class="row">
         <h1>$Title</h1>
