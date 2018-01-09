@@ -257,20 +257,20 @@ class BookCopy
             $schema['datePublished'] = $this->PublishYear;
         }
 
-        if ($this->getPublisher()->exists()) {
+        if ($this->Publisher()->exists()) {
             $schema['publisher'] = array();
             $schema['publisher']['@type'] = "Organization";
-            $schema['publisher']['name'] = $this->getPublisher()->getTitle();
-            if ($this->getPublisher()->Logo()->exists()) {
-                $schema['publisher']['logo'] = $this->getPublisher()->Logo()->URL;
+            $schema['publisher']['name'] = $this->Publisher()->getTitle();
+            if ($this->Publisher()->Logo()->exists()) {
+                $schema['publisher']['logo'] = $this->Publisher()->Logo()->URL;
             }
 
-            if ($this->getPublisher()->Address) {
+            if ($this->Publisher()->Address) {
                 $schema['publisher']['address']['@type'] = "PostalAddress";
-                $schema['publisher']['address']['streetAddress'] = $this->getPublisher()->Address;
+                $schema['publisher']['address']['streetAddress'] = $this->Publisher()->Address;
             }
 
-            $schema['publisher']['telephone'] = $this->getPublisher()->Phone;
+            $schema['publisher']['telephone'] = $this->Publisher()->Phone;
         }
 
         switch ($this->Format()->Title) {
