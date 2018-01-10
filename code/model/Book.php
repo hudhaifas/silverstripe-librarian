@@ -64,7 +64,8 @@
  * @version 1.0, Aug 27, 2016 - 9:24:49 AM
  */
 class Book
-        extends LibraryObject {
+        extends DataObject
+        implements ManageableDataObject, SearchableDataObject {
 
     private static $db = array(
         'Name' => 'Varchar(255)',
@@ -200,12 +201,18 @@ class Book
 //        }
     }
 
+    public function canView($member = null) {
+        return true;
+    }
+
     public function getTitle() {
         return $this->Name;
     }
 
     function Link($action = null) {
-        return parent::Link("book/$this->ID");
+        $page = BooksPage::get()->first();
+
+        return $page ? $page->Link($action) : null;
     }
 
     public function getDefaultSearchContext() {
@@ -224,6 +231,104 @@ class Book
         return new SearchContext(
                 $this->class, $fields, $filters
         );
+    }
+
+    //////// ManageableDataObject //////// 
+    public function getObjectTitle() {
+        $title = $this->getTitle();
+        return $title;
+    }
+
+    public function getObjectDefaultImage() {
+        return LIBRARIAN_DIR . "/images/book-cover.jpg";
+    }
+
+    public function getObjectImage() {
+        return $this->Cover();
+    }
+
+    public function getObjectEditLink() {
+        return $this->Link("edit/$this->ID");
+    }
+
+    public function getObjectItem() {
+        return $this->renderWith('Library_Item');
+    }
+
+    public function getObjectLink() {
+        return $this->Link("show/$this->ID");
+    }
+
+    public function getObjectNav() {
+        
+    }
+
+    public function getObjectRelated() {
+//        $releated = array();
+//
+//        foreach ($this->Categories() as $category) {
+//            $releated[] = $category->Books()->first()->BookCopies()->first();
+//        }
+//
+//        return new ArrayList($releated);
+        return Book::get()->sort('RAND()');
+    }
+
+    public function getObjectSummary() {
+        return $this->renderWith('Book_Summary');
+    }
+
+    public function getObjectTabs() {
+        $lists = array();
+
+        $copies = $this->BookCopies();
+        if ($copies->Count()) {
+            $lists[] = array(
+                'Title' => _t("Librarian.BOOK_COPIES", "Book Copies") . " ({$copies->Count()})",
+                'Content' => $this->renderWith('Book_Copies')
+            );
+        }
+
+        if ($this->Overview) {
+            $lists[] = array(
+                'Title' => _t("Librarian.BOOK_OVERVIEW", "Book Overview"),
+                'Content' => $this->Overview
+            );
+        }
+
+        $this->extend('extraTabs', $lists);
+
+        return new ArrayList($lists);
+    }
+
+    public function canPublicView() {
+        return $this->canView();
+    }
+
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        $schema = array();
+
+        $schema['@context'] = "http://schema.org";
+        $schema['@type'] = "Book";
+        $schema['@id'] = "#record";
+        $schema['name'] = $this->getTitle();
+        $schema['url'] = Director::absoluteURL($this->Link());
+        $schema['image'] = Director::absoluteURL($this->Cover()->URL);
+
+        if ($this->getAuthor()) {
+            $schema['author'] = array();
+            $schema['author']['@type'] = "Person";
+            $schema['author']['name'] = $this->getAuthor()->getTitle();
+        }
+
+        foreach ($this->BookCopies() as $copy) {
+            $schema['workExample'] = $copy->getObjectRichSnippets();
+        }
+
+        return $schema;
+//        return json_encode($schema, JSON_UNESCAPED_UNICODE);
+        return Convert::array2json($schema);
     }
 
     public function getRelated() {
@@ -268,29 +373,35 @@ class Book
         return $this->Cover()->CMSThumbnail();
     }
 
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
-        $schema = array();
+    function reorderField($fields, $name, $fromTab, $toTab, $disabled = false) {
+        $field = $fields->fieldByName($fromTab . '.' . $name);
 
-        $schema['@context'] = "http://schema.org";
-        $schema['@type'] = "Book";
-        $schema['@id'] = "#record";
-        $schema['name'] = $this->getTitle();
-        $schema['url'] = Director::absoluteURL($this->Link());
-        $schema['image'] = Director::absoluteURL($this->Cover()->URL);
+        if ($field) {
+            $fields->removeFieldFromTab($fromTab, $name);
+            $fields->addFieldToTab($toTab, $field);
 
-        if ($this->getAuthor()) {
-            $schema['author'] = array();
-            $schema['author']['@type'] = "Person";
-            $schema['author']['name'] = $this->getAuthor()->getTitle();
+            if ($disabled) {
+                $field = $field->performDisabledTransformation();
+            }
         }
 
-        foreach ($this->BookCopies() as $copy) {
-            $schema['workExample'] = $copy->getObjectRichSnippets();
+        return $field;
+    }
+
+    function removeField($fields, $name, $fromTab) {
+        $field = $fields->fieldByName($fromTab . '.' . $name);
+
+        if ($field) {
+            $fields->removeFieldFromTab($fromTab, $name);
         }
 
-//        return json_encode($schema, JSON_UNESCAPED_UNICODE);
-        return Convert::array2json($schema);
+        return $field;
+    }
+
+    function trim($field) {
+        if ($this->$field) {
+            $this->$field = trim($this->$field);
+        }
     }
 
 }

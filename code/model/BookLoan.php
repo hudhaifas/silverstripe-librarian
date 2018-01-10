@@ -30,7 +30,8 @@
  * @version 1.0, Sep 7, 2016 - 3:18:54 PM
  */
 class BookLoan
-        extends LibraryObject {
+        extends DataObject
+        implements ManageableDataObject, SearchableDataObject {
 
     /**
      * Default loan period, can be changed from the YML config file
@@ -155,6 +156,71 @@ class BookLoan
 
     public function Title() {
         return $this->Patron()->getTitle() . ' #' . $this->Book()->getShortTitle();
+    }
+
+    function Link($action = null) {
+        $page = BookLoansPage::get()->first();
+
+        return $page ? $page->Link($action) : null;
+    }
+
+    //////// ManageableDataObject ////////
+    public function getObjectDefaultImage() {
+        return $this->Book()->getObjectDefaultImage();
+    }
+
+    public function getObjectEditLink() {
+        return $this->Link("edit/$this->ID");
+    }
+
+    public function getObjectImage() {
+        return $this->Book()->getObjectImage();
+    }
+
+    public function getObjectItem() {
+        return $this->renderWith('Imageless_Item');
+    }
+
+    public function getObjectLink() {
+        return $this->Link("show/$this->ID");
+    }
+
+    public function getObjectNav() {
+        
+    }
+
+    public function getObjectRelated() {
+        return null;
+    }
+
+    public function getObjectSummary() {
+        return $this->renderWith('BookLoan_Summary');
+    }
+
+    public function getObjectTabs() {
+        $lists = array();
+
+        $lists[] = array(
+            'Title' => _t("Librarian.DETAILS", "Details"),
+            'Content' => $this->renderWith('BookLoan_Details')
+        );
+
+        $this->extend('extraTabs', $lists);
+
+        return new ArrayList($lists);
+    }
+
+    public function getObjectTitle() {
+        return $this->Title;
+    }
+
+    public function canPublicView() {
+        return $this->canView();
+    }
+
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        
     }
 
     private function calculateDueDate() {

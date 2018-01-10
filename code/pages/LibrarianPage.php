@@ -3,7 +3,7 @@
 /*
  * MIT License
  *  
- * Copyright (c) 2016 Hudhaifa Shatnawi
+ * Copyright (c) 2017 Hudhaifa Shatnawi
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,8 @@
  * @author Hudhaifa Shatnawi <hudhaifa.shatnawi@gmail.com>
  * @version 1.0, Sep 6, 2016 - 2:12:20 PM
  */
-class Librarian
-        extends AbstractLibrary {
+class LibrarianPage
+        extends Page {
 
     private static $db = array(
     );
@@ -46,7 +46,7 @@ class Librarian
     private static $icon = "librarian/images/librarian.png";
     private static $url_segment = 'librarian';
     private static $menu_title = 'librarian';
-    private static $allowed_children = 'none';
+    private static $allowed_children = array('PatronsPage', 'BookLoansPage');
     private static $description = 'Adds a librarian to your website.';
 
     public function canCreate($member = false) {
@@ -57,10 +57,41 @@ class Librarian
         return (DataObject::get($this->owner->class)->count() > 0) ? false : true;
     }
 
+    protected function onBeforeWrite() {
+        parent::onBeforeWrite();
+        $this->getUserGroup();
+    }
+
+    /**
+     * Returns/Creates the librarians group to assign CMS access.
+     *
+     * @return Group Librarians group
+     */
+    protected function getUserGroup() {
+        $code = $this->config()->group_code;
+
+        $group = Group::get()->filter('Code', $code)->first();
+
+        if (!$group) {
+            $group = new Group();
+            $group->Title = $this->config()->group_title;
+            $group->Code = $code;
+
+            $group->write();
+
+            $permission = new Permission();
+            $permission->Code = $this->config()->group_permission;
+
+            $group->Permissions()->add($permission);
+        }
+
+        return $group;
+    }
+
 }
 
-class Librarian_Controller
-        extends AbstractLibrary_Controller {
+class LibrarianPage_Controller
+        extends Page_Controller {
 
     private static $allowed_actions = array(
         'loans',
@@ -78,6 +109,11 @@ class Librarian_Controller
 
     public function init() {
         parent::init();
+
+        Requirements::css("librarian/css/librarian.css");
+        if ($this->isRTL()) {
+            Requirements::css("librarian/css/librarian-rtl.css");
+        }
     }
 
     public function LendForm() {
@@ -157,7 +193,7 @@ class Librarian_Controller
                         ->customise(array(
                             'Title' => _t('Librarian.LOAN_LEND', 'Lend')
                         ))
-                        ->renderWith(array('Librarian_Lend', 'Page'));
+                        ->renderWith(array('LibrarianPage_Lend', 'Page'));
     }
 
     public function loans() {
@@ -173,7 +209,7 @@ class Librarian_Controller
                                 'ReturnAction' => $filtered['Action'],
                                 'Title' => $filtered['Title']
                             ))
-                            ->renderWith(array('Librarian_Loans', 'Page'));
+                            ->renderWith(array('LibrarianPage_Loans', 'Page'));
         } else {
             return $this->httpError(404, 'No loans could be found!');
         }
@@ -194,37 +230,10 @@ class Librarian_Controller
                                 'ReturnAction' => $filtered['Action'],
                                 'Title' => $filtered['Title']
                             ))
-                            ->renderWith(array('Librarian_Patron', 'Page'));
+                            ->renderWith(array('LibrarianPage_Patron', 'Page'));
         } else {
             return $this->httpError(404, 'No loans could be found!');
         }
-
-//        $action = $this->getRequest()->param('action');
-//        $patronID = $this->getRequest()->param('patron');
-//
-//        $patron = Patron::get()->byID($patronID);
-//        $loans = DataObject::get_by_id('Patron', $patronID)->Loans();
-//        $paginateLoans = $this->getPaginated($loans, 9);
-//
-//        $archives = $this->getLoansArhiveList(
-//                array(
-//                    'PatronID' => $patronID
-//                )
-//        );
-//        $paginateArchive = $this->getPaginated($archives, 9);
-//
-//        if ($patron) {
-//            return $this
-//                            ->customise(array(
-//                                'Patron' => $patron,
-//                                'Loans' => $paginateLoans,
-//                                'Archives' => $paginateArchive,
-//                                'Title' => $patron->Title
-//                            ))
-//                            ->renderWith(array('Librarian_Patron', 'Page'));
-//        } else {
-//            return $this->httpError(404, 'That book could not be found!');
-//        }
     }
 
     /**
@@ -242,7 +251,7 @@ class Librarian_Controller
         if ($action == 'archive') {
             $loans = $this->getLoansArhiveList($filter);
             $returnAction = '0';
-            $title = _t('Librarian.ARCHIVE', 'Loans Archive');
+            $title = _t('Librarian.LOAN_ARCHIVE', 'Loans Archive');
         } else if ($action == 'overdue') {
             $loans = $this->getOverdueLoansList($filter);
             $title = _t('Librarian.OVERDUE', 'Overdue Loans');
@@ -274,6 +283,116 @@ class Librarian_Controller
         return $this->getLoansList(
                         array_merge($dueFilter, $filters)
         );
+    }
+
+    /// Pagination ///
+    public function getPaginated($list, $length = 9) {
+        $paginate = new PaginatedList($list, $this->request);
+        $paginate->setPageLength($length);
+
+        return $paginate;
+    }
+
+    /// Get ///
+    public function getPublicCatalogs() {
+        return BooksCatalog::get()->filter(array('IsPublic' => 1));
+    }
+
+    public function getPatronsList() {
+        $patrons = Patron::get();
+        return $patrons;
+    }
+
+    public function getAuthorsList() {
+        //TODO: fix this exception on MySQL > 5.7
+        if ($this->getDBVersion() > '5.6') {
+            $authors = BookAuthor::get();
+        } else {
+            $authors = BookAuthor::get()
+                    ->setQueriedColumns(['ID', 'Title', 'Count(*)'])
+                    ->leftJoin('Book_Authors', 'ba.BookAuthorID = BookAuthor.ID', 'ba')
+                    ->sort('Count(*) DESC')
+                    ->alterDataQuery(function($query) {
+                $query->groupBy('BookAuthor.ID');
+            });
+        }
+
+        return $authors;
+    }
+
+    public function getCategoriesList() {
+        //TODO: fix this exception on MySQL > 5.7
+        if ($this->getDBVersion() > '5.6') {
+            $categories = BookCategory::get();
+        } else {
+            $categories = BookCategory::get()
+                    ->setQueriedColumns(['ID', 'Title', 'Count(*)'])
+                    ->leftJoin('Book_Categories', 'bc.BookCategoryID = BookCategory.ID', 'bc')
+                    ->sort('Count(*) DESC')
+                    ->alterDataQuery(function($query) {
+                $query->groupBy('BookCategory.ID');
+            });
+        }
+
+        return $categories;
+    }
+
+    public function getPublishersList() {
+        return BookPublisher::get()->filter(array());
+//        $publishers = BookPublisher::get()
+//                ->setQueriedColumns(['ID', 'Title', 'Count(*)'])
+//                ->leftJoin('Book_Authors', 'ba.BookPublisherID = BookPublisher.ID', 'ba')
+//                ->sort('Count(*) DESC')
+//                ->alterDataQuery(function($query) {
+//            $query->groupBy('BookPublisher.ID');
+//        });
+//
+//        return $publishers;
+    }
+
+    public function getAuthorBooksss() {
+        $author = BookAuthor::get()->filter(array('ID' => 3));
+
+        $result = array();
+        foreach ($author->Books() as $book) {
+//            $result[] = $book;
+        }
+
+        return new ArrayList($result);
+
+//        return Book::get()->filter('Authors.ID:partialmatch', 3);
+    }
+
+    public function getCategoryBooks($CategoryID) {
+        return BookCategory::get_by_id($CategoryID)->Books();
+    }
+
+    public function getPublisherBooks($PublisherID) {
+        return BookPublisher::get_by_id($PublisherID)->Books();
+    }
+
+    public function getBooksList($filters = array()) {
+        return DataObject::get('Book')->filter($filters);
+    }
+
+    public function getVolumesList($filters = array()) {
+        return DataObject::get('BookVolume')->filter($filters);
+    }
+
+    public function getLatestBooks() {
+        return Book::get()->filter(array())->sort('Created DESC');
+    }
+
+    public function getBookCopies($BookID) {
+        return Book::get_by_id($BookID)->BookCopies();
+    }
+
+    public function getBookAuthors($BookID) {
+        return Book::get_by_id($BookID)->Authors();
+    }
+
+    public function getBookCategories($BookID) {
+        return Book::get_by_id($BookID)->Categories();
     }
 
 }

@@ -31,7 +31,8 @@
  * @version 1.0, Aug 27, 2016 - 9:58:57 AM
  */
 class BookCopy
-        extends LibraryObject {
+        extends DataObject
+        implements ManageableDataObject, SearchableDataObject {
 
     private static $db = array(
         'ISBN' => 'Varchar(20)', // 13 digit number ex; 978-3-16-148410-0
@@ -159,12 +160,111 @@ class BookCopy
 //        }
     }
 
+    public function canView($member = null) {
+        return true;
+    }
+
 //    public function getTitle() {
 //        return $this->Title ? $this->Title : $this->Book()->Title;
 //    }
 
     function Link($action = null) {
         return parent::Link("copy/$this->ID");
+    }
+
+    //////// ManageableDataObject //////// 
+    public function getObjectDefaultImage() {
+        return LIBRARIAN_DIR . "/images/book-cover.jpg";
+    }
+
+    public function getObjectEditLink() {
+        
+    }
+
+    public function getObjectImage() {
+        return $this->getCoverImage();
+    }
+
+    public function getObjectItem() {
+        return $this->renderWith('Library_Item');
+    }
+
+    public function getObjectLink() {
+        return $this->Book()->getObjectLink();
+    }
+
+    public function getObjectNav() {
+        
+    }
+
+    public function getObjectRelated() {
+        
+    }
+
+    public function getObjectSummary() {
+        
+    }
+
+    public function getObjectTabs() {
+        
+    }
+
+    public function getObjectTitle() {
+        return $this->Title;
+    }
+
+    public function canPublicView() {
+        return $this->canView();
+    }
+
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        $schema = array();
+
+        $schema['@context'] = "http://schema.org";
+        $schema['@type'] = "Book";
+        if ($this->ISBN) {
+            $schema['isbn'] = $this->ISBN;
+        }
+
+        if ($this->Edition) {
+            $schema['bookEdition'] = $this->Edition;
+        }
+
+        if ($this->PublishYear) {
+            $schema['datePublished'] = $this->PublishYear;
+        }
+
+        if ($this->Publisher()->exists()) {
+            $schema['publisher'] = array();
+            $schema['publisher']['@type'] = "Organization";
+            $schema['publisher']['name'] = $this->Publisher()->getTitle();
+            if ($this->Publisher()->Logo()->exists()) {
+                $schema['publisher']['logo'] = $this->Publisher()->Logo()->URL;
+            }
+
+            if ($this->Publisher()->Address) {
+                $schema['publisher']['address']['@type'] = "PostalAddress";
+                $schema['publisher']['address']['streetAddress'] = $this->Publisher()->Address;
+            }
+
+            $schema['publisher']['telephone'] = $this->Publisher()->Phone;
+        }
+
+        switch ($this->Format()->Title) {
+            case 'Hardcover':
+                $schema['bookFormat'] = "http://schema.org/Hardcover";
+                break;
+
+            case 'Paperback':
+                $schema['bookFormat'] = "http://schema.org/Hardcover";
+                break;
+
+            default:
+                break;
+        }
+
+        return $schema;
     }
 
     public function getRandomVolumes($num = 2) {
@@ -237,56 +337,6 @@ class BookCopy
 
     public function getAuthor() {
         return $this->Book()->getAuthor();
-    }
-
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
-        $schema = array();
-
-        $schema['@context'] = "http://schema.org";
-        $schema['@type'] = "Book";
-        if ($this->ISBN) {
-            $schema['isbn'] = $this->ISBN;
-        }
-
-        if ($this->Edition) {
-            $schema['bookEdition'] = $this->Edition;
-        }
-
-        if ($this->PublishYear) {
-            $schema['datePublished'] = $this->PublishYear;
-        }
-
-        if ($this->Publisher()->exists()) {
-            $schema['publisher'] = array();
-            $schema['publisher']['@type'] = "Organization";
-            $schema['publisher']['name'] = $this->Publisher()->getTitle();
-            if ($this->Publisher()->Logo()->exists()) {
-                $schema['publisher']['logo'] = $this->Publisher()->Logo()->URL;
-            }
-
-            if ($this->Publisher()->Address) {
-                $schema['publisher']['address']['@type'] = "PostalAddress";
-                $schema['publisher']['address']['streetAddress'] = $this->Publisher()->Address;
-            }
-
-            $schema['publisher']['telephone'] = $this->Publisher()->Phone;
-        }
-
-        switch ($this->Format()->Title) {
-            case 'Hardcover':
-                $schema['bookFormat'] = "http://schema.org/Hardcover";
-                break;
-
-            case 'Paperback':
-                $schema['bookFormat'] = "http://schema.org/Hardcover";
-                break;
-
-            default:
-                break;
-        }
-
-        return $schema;
     }
 
 }

@@ -31,7 +31,8 @@
  * @version 1.0, Aug 27, 2016 - 9:25:06 AM
  */
 class Patron
-        extends LibraryObject {
+        extends DataObject
+        implements ManageableDataObject, SearchableDataObject {
 
     private static $db = array(
         'SerialNumber' => 'Varchar(20)', // Unique codabar number
@@ -95,7 +96,81 @@ class Patron
     }
 
     function Link($action = null) {
-        return parent::Link("patron/$this->ID");
+        $page = PatronsPage::get()->first();
+
+        return $page ? $page->Link($action) : null;
+    }
+
+    //////// ManageableDataObject ////////
+    public function getObjectDefaultImage() {
+        return LIBRARIAN_DIR . "/images/default-author.png";
+    }
+
+    public function getObjectEditLink() {
+        return $this->Link("edit/$this->ID");
+    }
+
+    public function getObjectImage() {
+//        return $this->Photo();
+    }
+
+    public function getObjectItem() {
+        return $this->renderWith('Library_Item');
+    }
+
+    public function getObjectLink() {
+        return $this->Link("show/$this->ID");
+    }
+
+    public function getObjectNav() {
+        
+    }
+
+    public function getObjectRelated() {
+    }
+
+    public function getObjectSummary() {
+        return $this->renderWith('Patron_Summary');
+    }
+
+    public function getObjectTabs() {
+        $lists = array();
+
+        if ($this->Biography) {
+            $lists[] = array(
+                'Title' => _t("Librarian.AUTHOR_OVERVIEW", "Author Overview"),
+                'Content' => $this->Biography
+            );
+        }
+
+        $loans = $this->Loans();
+        if ($loans->Count()) {
+            $lists[] = array(
+                'Title' => _t("Librarian.LOANS", "Loans") . " ({$loans->Count()})",
+                'Content' => $this
+                        ->customise(array(
+                            'Results' => $loans
+                        ))
+                        ->renderWith('List_Grid')
+            );
+        }
+
+        $this->extend('extraTabs', $lists);
+
+        return new ArrayList($lists);
+    }
+
+    public function getObjectTitle() {
+        return $this->getTitle();
+    }
+
+    public function canPublicView() {
+        return $this->canView();
+    }
+
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        
     }
 
     public function getTitle() {

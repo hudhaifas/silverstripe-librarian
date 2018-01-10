@@ -67,6 +67,7 @@ ar:
     # Book Details
     LANGUAGE: 'اللغة'
     COVER_IMAGE: 'صورة الغلاف'
+    COVER: 'الغلاف'
     ISBN: 'رقم الإيداع'
     SUBJECT: 'الموضوع'
     PUBLISH_YEAR: 'سنة النشر'
@@ -112,6 +113,7 @@ ar:
     # Author
     AUTHOR: 'المؤلف'
     AUTHORS: 'المؤلفون'
+    AUTHOR_OVERVIEW: 'لمحة عن المؤلف'
     AUTHORS_NUM: 'يوجد {value} مؤلفين'
     ORIGINAL_PUBLISH: 'سنة التأليف'
     # Page
@@ -152,13 +154,17 @@ ar:
     LOANS_COUNT: 'عدد الكتب المستعارة'
     LOAN_DATE: 'تاريخ الإستعارة'
     LOAN_ARCHIVE: 'أرشيف الإعارات'
-    DUE_DATE: 'تاريخ الإرجاع'
+    DUE_DATE: 'موعد الإرجاع'
+    RETURN_DATE: 'تاريخ الإرجاع'
     CHOOSE_PATRON: 'اختر قارئا'
     CHOOSE_BOOK: 'اختر كتابا'
     LEND_BOOK: 'إعارة كتاب'
     RETURN_BOOK: 'إرجاع كتاب'
     CHOOSE_LOAN: 'اختر إعارة'
+    LOAN_OVERDUE: 'متأخر'
+    LOAN: 'الإعارة'
+    ACTION: ''
     LEND: 'أعر'
     RETURN: 'أرجع'
     NO_LENDED_BOOKS: 'لا يوجد كتب معارة'
-    
+    DETAILS: 'التفاصيل'

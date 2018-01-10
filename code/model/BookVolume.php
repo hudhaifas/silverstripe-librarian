@@ -31,7 +31,8 @@
  * @version 1.0, Aug 27, 2016 - 9:58:57 AM
  */
 class BookVolume
-        extends LibraryObject {
+        extends DataObject
+        implements ManageableDataObject, SearchableDataObject {
 
     private static $db = array(
         'SerialNumber' => 'Varchar(20)', // Unique serial number
@@ -166,8 +167,14 @@ class BookVolume
         return $fields;
     }
 
+    public function canView($member = null) {
+        return true;
+    }
+
     function Link($action = null) {
-        return parent::Link("volume/$this->ID");
+        $page = BookVolumesPage::get()->first();
+
+        return $page ? $page->Link($action) : null;
     }
 
     public function getDefaultSearchContext() {
@@ -190,6 +197,126 @@ class BookVolume
 
     public function getTitle() {
         return $this->getFullTitle();
+    }
+
+    //////// ManageableDataObject ////////
+    public function getObjectDefaultImage() {
+        
+    }
+
+    public function getObjectEditLink() {
+        return $this->Link("edit/$this->ID");
+    }
+
+    public function getObjectImage() {
+        return $this->BookCopy()->getCoverImage();
+    }
+
+    public function getObjectItem() {
+        return $this->renderWith('Library_Item');
+    }
+
+    public function getObjectLink() {
+        return $this->Link("show/$this->ID");
+    }
+
+    public function getObjectNav() {
+        
+    }
+
+    public function getObjectRelated() {
+        return BookVolume::get()->sort('RAND()');
+    }
+
+    public function getObjectSummary() {
+        return $this->renderWith('Volume_Summary');
+    }
+
+    public function getObjectTabs() {
+        $lists = array();
+
+        if ($this->getOverview()) {
+            $lists[] = array(
+                'Title' => _t("Librarian.BOOK_OVERVIEW", "Book Overview"),
+                'Content' => $this->getOverview()
+            );
+        }
+
+        $this->extend('extraTabs', $lists);
+
+        return new ArrayList($lists);
+    }
+
+    public function getObjectTitle() {
+        return $this->getTitle();
+    }
+
+    public function canPublicView() {
+        return $this->canView();
+    }
+
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        $schema = array();
+
+        $schema['@context'] = "http://schema.org";
+        $schema['@type'] = "Book";
+        $schema['@id'] = "#record";
+        $schema['image'] = Director::absoluteURL($this->BookCopy()->getCoverImage()->URL);
+        $schema['name'] = $this->getTitle();
+
+        if ($this->getISBN()) {
+            $schema['isbn'] = $this->getISBN();
+        }
+
+        if ($this->getEdition()) {
+            $schema['bookEdition'] = $this->getEdition();
+        }
+
+        if ($this->Length) {
+            $schema['numberOfPages'] = $this->Length;
+        }
+
+        if ($this->getAuthor()) {
+            $schema['author'] = array();
+            $schema['author']['@type'] = "Person";
+            $schema['author']['name'] = $this->getAuthor()->getTitle();
+        }
+
+        if ($this->getPublishYear()) {
+            $schema['datePublished'] = $this->getPublishYear();
+        }
+
+        if ($this->getPublisher()->exists()) {
+            $schema['publisher'] = array();
+            $schema['publisher']['@type'] = "Organization";
+            $schema['publisher']['name'] = $this->getPublisher()->getTitle();
+            if ($this->getPublisher()->Logo()->exists()) {
+                $schema['publisher']['logo'] = Director::absoluteURL($this->getPublisher()->Logo()->URL);
+            }
+
+            if ($this->getPublisher()->Address) {
+                $schema['publisher']['address']['@type'] = "PostalAddress";
+                $schema['publisher']['address']['streetAddress'] = $this->getPublisher()->Address;
+            }
+
+            $schema['publisher']['telephone'] = $this->getPublisher()->Phone;
+        }
+
+        $schema['offers'] = array();
+        $schema['offers']['@type'] = "Offer";
+        $schema['offers']['availability'] = $this->isAvailable() ? "http://schema.org/InStock" : "http://schema.org/OutOfStock";
+        $schema['offers']['serialNumber'] = $this->SerialNumber;
+        $schema['offers']['offeredBy'] = array();
+        $schema['offers']['offeredBy']['@type'] = "Library";
+        $schema['offers']['offeredBy']['@id'] = Director::BaseURL();
+        $schema['offers']['offeredBy']['name'] = SiteConfig::current_site_config()->Title;
+        $schema['offers']['offeredBy']['image'] = Director::absoluteURL(THEMES_DIR . "/" . SiteConfig::current_site_config()->Theme . "/images/favicon.png");
+        $schema['offers']['itemOffered'] = "#record";
+
+        return $schema;
+//        return json_encode($schema, JSON_UNESCAPED_UNICODE);
+//        return Convert::array2json($schema);
     }
 
     /// Book Volume ///
@@ -317,69 +444,6 @@ class BookVolume
 
     public function getAuthor() {
         return $this->BookCopy()->getAuthor();
-    }
-
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
-        $schema = array();
-
-        $schema['@context'] = "http://schema.org";
-        $schema['@type'] = "Book";
-        $schema['@id'] = "#record";
-        $schema['image'] = Director::absoluteURL($this->BookCopy()->getCoverImage()->URL);
-        $schema['name'] = $this->getTitle();
-
-        if ($this->getISBN()) {
-            $schema['isbn'] = $this->getISBN();
-        }
-
-        if ($this->getEdition()) {
-            $schema['bookEdition'] = $this->getEdition();
-        }
-
-        if ($this->Length) {
-            $schema['numberOfPages'] = $this->Length;
-        }
-
-        if ($this->getAuthor()) {
-            $schema['author'] = array();
-            $schema['author']['@type'] = "Person";
-            $schema['author']['name'] = $this->getAuthor()->getTitle();
-        }
-
-        if ($this->getPublishYear()) {
-            $schema['datePublished'] = $this->getPublishYear();
-        }
-
-        if ($this->getPublisher()->exists()) {
-            $schema['publisher'] = array();
-            $schema['publisher']['@type'] = "Organization";
-            $schema['publisher']['name'] = $this->getPublisher()->getTitle();
-            if ($this->getPublisher()->Logo()->exists()) {
-                $schema['publisher']['logo'] = Director::absoluteURL($this->getPublisher()->Logo()->URL);
-            }
-
-            if ($this->getPublisher()->Address) {
-                $schema['publisher']['address']['@type'] = "PostalAddress";
-                $schema['publisher']['address']['streetAddress'] = $this->getPublisher()->Address;
-            }
-
-            $schema['publisher']['telephone'] = $this->getPublisher()->Phone;
-        }
-
-        $schema['offers'] = array();
-        $schema['offers']['@type'] = "Offer";
-        $schema['offers']['availability'] = $this->isAvailable() ? "http://schema.org/InStock" : "http://schema.org/OutOfStock";
-        $schema['offers']['serialNumber'] = $this->SerialNumber;
-        $schema['offers']['offeredBy'] = array();
-        $schema['offers']['offeredBy']['@type'] = "Library";
-        $schema['offers']['offeredBy']['@id'] = Director::BaseURL();
-        $schema['offers']['offeredBy']['name'] = SiteConfig::current_site_config()->Title;
-        $schema['offers']['offeredBy']['image'] = Director::absoluteURL(THEMES_DIR . "/" . SiteConfig::current_site_config()->Theme . "/images/favicon.png");
-        $schema['offers']['itemOffered'] = "#record";
-
-//        return json_encode($schema, JSON_UNESCAPED_UNICODE);
-        return Convert::array2json($schema);
     }
 
 }

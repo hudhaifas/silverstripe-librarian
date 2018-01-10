@@ -30,10 +30,12 @@
  * @version 1.0, Aug 27, 2016 - 1:05:45 PM
  */
 class BookCategory
-        extends LibraryObject {
+        extends DataObject
+        implements ManageableDataObject, SearchableDataObject {
 
     private static $db = array(
         'Title' => 'Varchar(255)',
+        'Description' => 'Text'
     );
     private static $has_one = array(
     );
@@ -60,7 +62,84 @@ class BookCategory
     }
 
     function Link($action = null) {
-        return parent::Link("books/category/$this->ID");
+        $page = BookCategoriesPage::get()->first();
+
+        return $page ? $page->Link($action) : null;
+    }
+
+    //////// ManageableDataObject ////////
+    public function getObjectDefaultImage() {
+        return null;
+    }
+
+    public function getObjectEditLink() {
+        return $this->Link("edit/$this->ID");
+    }
+
+    public function getObjectImage() {
+        return null;
+    }
+
+    public function getObjectItem() {
+        return $this->renderWith('Imageless_Item');
+    }
+
+    public function getObjectLink() {
+        return $this->Link("show/$this->ID");
+    }
+
+    public function getObjectNav() {
+        
+    }
+
+    public function getObjectRelated() {
+        return BookCategory::get()->sort('RAND()');
+    }
+
+    public function getObjectSummary() {
+        $lists = array();
+
+        if ($this->Description) {
+            $lists[] = array(
+                'Title' => _t('Librarian.DESCRIPTION', 'Description'),
+                'Value' => '<br />' . $this->Description
+            );
+        }
+
+        return new ArrayList($lists);
+    }
+
+    public function getObjectTabs() {
+        $lists = array();
+
+        $books = $this->Books();
+        if ($books->Count()) {
+            $lists[] = array(
+                'Title' => _t("Librarian.BOOKS", "Books") . " ({$books->Count()})",
+                'Content' => $this
+                        ->customise(array(
+                            'Results' => $books
+                        ))
+                        ->renderWith('List_Grid')
+            );
+        }
+
+        $this->extend('extraTabs', $lists);
+
+        return new ArrayList($lists);
+    }
+
+    public function getObjectTitle() {
+        return $this->Title;
+    }
+
+    public function canPublicView() {
+        return $this->canView();
+    }
+
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        
     }
 
     public function getRandomBooks($num = 2) {

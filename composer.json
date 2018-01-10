@@ -19,7 +19,8 @@
         "silverstripe/framework": "~3.0",
         "silverstripe/tagfield": "^1.0",
         "gheggie/silverstripe-barcode": "@dev",
-        "samthejarvis/silverstripe-watermarking": "dev-master"
+        "samthejarvis/silverstripe-watermarking": "dev-master",
+        "hudhaifas/silverstripe-dataobject-manager": "dev-master"
     },
     "extra": {
         "installer-name": "librarian"

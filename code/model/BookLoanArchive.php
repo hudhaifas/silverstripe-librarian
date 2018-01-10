@@ -30,7 +30,7 @@
  * @version 1.0, Sep 7, 2016 - 3:18:54 PM
  */
 class BookLoanArchive
-        extends LibraryObject {
+        extends DataObject {
 
     /**
      * Default loan period, can be changed from the YML config file

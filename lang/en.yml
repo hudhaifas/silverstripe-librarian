@@ -66,6 +66,7 @@ en:
     # Book Details
     LANGUAGE: 'Language'
     COVER_IMAGE: 'Cover Image'
+    COVER: 'Cover'
     ISBN: 'ISBN'
     SUBJECT: 'Subject'
     PUBLISH_YEAR: 'Publish Year'
@@ -111,6 +112,7 @@ en:
     # Author
     AUTHOR: 'Author'
     AUTHORS: 'Authors'
+    AUTHOR_OVERVIEW: 'Author Overview'
     AUTHORS_NUM: '{value} Authors'
     ORIGINAL_PUBLISH: 'Original Publish'
     # Page
@@ -152,12 +154,17 @@ en:
     LOAN_DATE: 'Loan Date'
     LOAN_ARCHIVE: 'Loans Archive'
     DUE_DATE: 'Due Date'
+    RETURN_DATE: 'Return Date'
     CHOOSE_PATRON: 'Choose Patron'
     CHOOSE_BOOK: 'Choose Book'
     LEND_BOOK: 'Lend Book'
     RETURN_BOOK: 'Return Book'
     CHOOSE_LOAN: 'Choose Loan'
+    LOAN_OVERDUE: 'Overdue'
+    LOAN: 'Loan'
+    ACTION: ''
     LEND: 'Lend'
     RETURN: 'Return'
     NO_LENDED_BOOKS: 'No Lend Books'
+    DETAILS: 'Details'
     

@@ -30,7 +30,8 @@
  * @version 1.0, Aug 27, 2016 - 9:50:21 AM
  */
 class BookPublisher
-        extends LibraryObject {
+        extends DataObject
+        implements ManageableDataObject, SearchableDataObject {
 
     private static $db = array(
         'Name' => 'Varchar(255)',
@@ -74,7 +75,9 @@ class BookPublisher
     }
 
     function Link($action = null) {
-        return parent::Link("publisher/$this->ID");
+        $page = BookPublishersPage::get()->first();
+
+        return $page ? $page->Link($action) : null;
     }
 
     public function Title() {
@@ -85,6 +88,88 @@ class BookPublisher
         }
 
         return $title;
+    }
+
+    //////// ManageableDataObject ////////
+    public function getObjectDefaultImage() {
+        return LIBRARIAN_DIR . "/images/default-author.png";
+    }
+
+    public function getObjectEditLink() {
+        return $this->Link("edit/$this->ID");
+    }
+
+    public function getObjectImage() {
+        return $this->Logo();
+    }
+
+    public function getObjectItem() {
+        return $this->renderWith('Library_Item');
+    }
+
+    public function getObjectLink() {
+        return $this->Link("show/$this->ID");
+    }
+
+    public function getObjectNav() {
+        
+    }
+
+    public function getObjectRelated() {
+        return BookPublisher::get()->sort('RAND()');
+    }
+
+    public function getObjectSummary() {
+        $lists = array();
+
+        if ($this->Address) {
+            $lists[] = array(
+                'Title' => _t('Librarian.ADDRESS', 'Address'),
+                'Value' => $this->Address
+            );
+        }
+
+        if ($this->Phone) {
+            $lists[] = array(
+                'Title' => _t('Librarian.PHONE', 'Phone'),
+                'Value' => $this->Phone
+            );
+        }
+
+        return new ArrayList($lists);
+    }
+
+    public function getObjectTabs() {
+        $lists = array();
+
+        $books = $this->BookCopies();
+        if ($books->Count()) {
+            $lists[] = array(
+                'Title' => _t("Librarian.BOOKS", "Books") . " ({$books->Count()})",
+                'Content' => $this
+                        ->customise(array(
+                            'Results' => $books
+                        ))
+                        ->renderWith('List_Grid')
+            );
+        }
+
+        $this->extend('extraTabs', $lists);
+
+        return new ArrayList($lists);
+    }
+
+    public function getObjectTitle() {
+        return $this->Name;
+    }
+
+    public function canPublicView() {
+        return $this->canView();
+    }
+
+    //////// SearchableDataObject //////// 
+    public function getObjectRichSnippets() {
+        
     }
 
     public function ThumbLogo() {

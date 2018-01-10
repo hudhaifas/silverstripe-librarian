@@ -30,7 +30,7 @@
  * @version 1.0, Aug 27, 2016 - 10:32:49 AM
  */
 class BooksCatalog
-        extends LibraryObject {
+        extends DataObject {
 
     private static $db = array(
         'Title' => 'Varchar(255)',
