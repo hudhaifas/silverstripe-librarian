@@ -104,6 +104,13 @@ class BooksCatalog
         return $page ? $page->Link("catalog/$this->ID") : null;
     }
 
+    /**
+     * Show this DataObejct in the sitemap.xml
+     */
+    function AbsoluteLink($action = null) {
+        return Director::absoluteURL($this->Link());
+    }
+
     public function getVolumes($includeReferences = true) {
         $volumes = array();
 

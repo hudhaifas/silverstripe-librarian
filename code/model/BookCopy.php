@@ -168,8 +168,11 @@ class BookCopy
 //        return $this->Title ? $this->Title : $this->Book()->Title;
 //    }
 
-    function Link($action = null) {
-        return parent::Link("copy/$this->ID");
+    /**
+     * Show this DataObejct in the sitemap.xml
+     */
+    function AbsoluteLink($action = null) {
+        return $this->Book()->AbsoluteLink($action);
     }
 
     //////// ManageableDataObject //////// 

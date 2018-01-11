@@ -177,6 +177,13 @@ class BookVolume
         return $page ? $page->Link($action) : null;
     }
 
+    /**
+     * Show this DataObejct in the sitemap.xml
+     */
+    function AbsoluteLink($action = null) {
+        return Director::absoluteURL($this->Link("show/$this->ID"));
+    }
+
     public function getDefaultSearchContext() {
         $fields = $this->scaffoldSearchFields(array(
             'restrictFields' => array(
