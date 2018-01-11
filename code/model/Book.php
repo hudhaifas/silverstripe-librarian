@@ -240,7 +240,7 @@ class Book
     }
 
     public function getObjectDefaultImage() {
-        return LIBRARIAN_DIR . "/images/book-cover.jpg";
+        return LIBRARIAN_DIR . "/images/book-cover.png";
     }
 
     public function getObjectImage() {
