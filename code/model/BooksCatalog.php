@@ -99,7 +99,9 @@ class BooksCatalog
     }
 
     function Link($action = null) {
-        return parent::Link("catalog/$this->ID");
+        $page = BookVolumesPage::get()->first();
+
+        return $page ? $page->Link("catalog/$this->ID") : null;
     }
 
     public function getVolumes($includeReferences = true) {
