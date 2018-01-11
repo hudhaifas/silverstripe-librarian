@@ -98,6 +98,10 @@ class BooksCatalog
         return $fields;
     }
 
+    public function canView($member = null) {
+        return true;
+    }
+
     function Link($action = null) {
         $page = BookVolumesPage::get()->first();
 

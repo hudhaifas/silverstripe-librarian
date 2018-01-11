@@ -84,6 +84,10 @@ class BookFormat
         return $fields;
     }
 
+    public function canView($member = null) {
+        return true;
+    }
+
     function Link($action = null) {
         $page = BookFormatsPage::get()->first();
 

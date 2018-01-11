@@ -61,6 +61,10 @@ class BookCategory
         return $labels;
     }
 
+    public function canView($member = null) {
+        return true;
+    }
+
     function Link($action = null) {
         $page = BookCategoriesPage::get()->first();
 
