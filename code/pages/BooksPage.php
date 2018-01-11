@@ -52,10 +52,7 @@ class BooksPage_Controller
         extends DataObjectPage_Controller {
 
     protected function getObjectsList() {
-        return DataObject::get('Book')
-                        ->filterByCallback(function($record) {
-                            return $record->canView();
-                        });
+        return DataObject::get('Book');
     }
 
     protected function searchObjects($list, $keywords) {
@@ -63,7 +60,6 @@ class BooksPage_Controller
                     'Name:PartialMatch' => $keywords,
                     'Subject:PartialMatch' => $keywords,
                     'Overview:PartialMatch' => $keywords,
-                    'OriginalPublish' => $keywords,
                     'Language:PartialMatch' => $keywords,
         ));
     }

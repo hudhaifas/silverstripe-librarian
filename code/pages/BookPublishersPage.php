@@ -52,10 +52,7 @@ class BookPublishersPage_Controller
         extends DataObjectPage_Controller {
 
     protected function getObjectsList() {
-        return DataObject::get('BookPublisher')
-                        ->filterByCallback(function($record) {
-                            return $record->canView();
-                        });
+        return DataObject::get('BookPublisher');
     }
 
     protected function searchObjects($list, $keywords) {

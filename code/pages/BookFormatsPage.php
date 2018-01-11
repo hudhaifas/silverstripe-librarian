@@ -52,10 +52,7 @@ class BookFormatsPage_Controller
         extends DataObjectPage_Controller {
 
     protected function getObjectsList() {
-        return DataObject::get('BookFormat')
-                        ->filterByCallback(function($record) {
-                            return $record->canView();
-                        });
+        return DataObject::get('BookFormat');
     }
 
     protected function searchObjects($list, $keywords) {

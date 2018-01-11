@@ -52,10 +52,7 @@ class BookLoansPage_Controller
         extends DataObjectPage_Controller {
 
     protected function getObjectsList() {
-        return DataObject::get('BookLoan')
-                        ->filterByCallback(function($record) {
-                            return $record->canView();
-                        });
+        return DataObject::get('BookLoan');
     }
 
     protected function searchObjects($list, $keywords) {

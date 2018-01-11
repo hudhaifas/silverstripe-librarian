@@ -59,10 +59,7 @@ class BookVolumesPage_Controller
     );
 
     protected function getObjectsList() {
-        return DataObject::get('BookVolume')
-                        ->filterByCallback(function($record) {
-                            return $record->canView();
-                        });
+        return DataObject::get('BookVolume');
     }
 
     protected function searchObjects($list, $keywords) {

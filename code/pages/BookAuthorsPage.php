@@ -52,19 +52,18 @@ class BookAuthorsPage_Controller
         extends DataObjectPage_Controller {
 
     protected function getObjectsList() {
-        return DataObject::get('BookAuthor')
-                        ->filterByCallback(function($record) {
-                            return $record->canView();
-                        });
+        return DataObject::get('BookAuthor');
     }
 
     protected function searchObjects($list, $keywords) {
         return $list->filterAny(array(
-                    'Name:PartialMatch' => $keywords,
-                    'Subject:PartialMatch' => $keywords,
-                    'Overview:PartialMatch' => $keywords,
-                    'OriginalPublish' => $keywords,
-                    'Language:PartialMatch' => $keywords,
+                    'Prefix:PartialMatch' => $keywords,
+                    'FirstName:PartialMatch' => $keywords,
+                    'LastName:PartialMatch' => $keywords,
+                    'Postfix:PartialMatch' => $keywords,
+                    'NickName:PartialMatch' => $keywords,
+                    'SurName:PartialMatch' => $keywords,
+                    'Biography:PartialMatch' => $keywords,
         ));
     }
 

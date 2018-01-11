@@ -52,10 +52,7 @@ class PatronsPage_Controller
         extends DataObjectPage_Controller {
 
     protected function getObjectsList() {
-        return DataObject::get('Patron')
-                        ->filterByCallback(function($record) {
-                            return $record->canView();
-                        });
+        return DataObject::get('Patron');
     }
 
     protected function searchObjects($list, $keywords) {
@@ -63,7 +60,7 @@ class PatronsPage_Controller
                     'SerialNumber:PartialMatch' => $keywords,
                     'FirstName:PartialMatch' => $keywords,
                     'LastName:PartialMatch' => $keywords,
-                    'Email' => $keywords,
+                    'Email:PartialMatch' => $keywords,
                     'Phone:PartialMatch' => $keywords,
         ));
     }
