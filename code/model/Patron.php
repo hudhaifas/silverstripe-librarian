@@ -32,7 +32,7 @@
  */
 class Patron
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject {
 
     private static $db = array(
         'SerialNumber' => 'Varchar(20)', // Unique codabar number
@@ -127,6 +127,7 @@ class Patron
     }
 
     public function getObjectRelated() {
+        
     }
 
     public function getObjectSummary() {
@@ -166,11 +167,6 @@ class Patron
 
     public function canPublicView() {
         return $this->canView();
-    }
-
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
-        
     }
 
     public function getTitle() {

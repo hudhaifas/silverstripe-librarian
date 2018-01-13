@@ -31,7 +31,7 @@
  */
 class BookLoan
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject {
 
     /**
      * Default loan period, can be changed from the YML config file
@@ -216,11 +216,6 @@ class BookLoan
 
     public function canPublicView() {
         return $this->canView();
-    }
-
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
-        
     }
 
     private function calculateDueDate() {

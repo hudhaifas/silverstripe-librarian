@@ -31,12 +31,13 @@
  */
 class BookPublisher
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
     private static $db = array(
         'Name' => 'Varchar(255)',
         'Address' => 'Varchar(255)',
         'Phone' => 'Varchar(20)',
+        'Description' => 'Text',
     );
     private static $translate = array(
         'Name',
@@ -54,6 +55,7 @@ class BookPublisher
         'Address',
         'Phone',
         'BookCopies.Count',
+        'Description',
     );
     private static $field_labels = array(
         'ThumbLogo' => 'Logo',
@@ -181,6 +183,15 @@ class BookPublisher
     //////// SearchableDataObject //////// 
     public function getObjectRichSnippets() {
         
+    }
+
+    //////// SociableDataObject //////// 
+    public function getSocialDescription() {
+        if ($this->Description) {
+            return strip_tags($this->Description);
+        }
+
+        return $this->getObjectTitle();
     }
 
     public function ThumbLogo() {

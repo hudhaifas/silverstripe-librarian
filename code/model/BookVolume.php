@@ -32,7 +32,7 @@
  */
 class BookVolume
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
     private static $db = array(
         'SerialNumber' => 'Varchar(20)', // Unique serial number
@@ -324,6 +324,15 @@ class BookVolume
         return $schema;
 //        return json_encode($schema, JSON_UNESCAPED_UNICODE);
 //        return Convert::array2json($schema);
+    }
+
+    //////// SociableDataObject //////// 
+    public function getSocialDescription() {
+        if ($this->getOverview()) {
+            return strip_tags($this->getOverview());
+        }
+
+        return $this->getObjectTitle();
     }
 
     /// Book Volume ///

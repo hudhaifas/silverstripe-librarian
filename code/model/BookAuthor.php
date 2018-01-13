@@ -31,7 +31,7 @@
  */
 class BookAuthor
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
     private static $db = array(
         'Prefix' => 'Varchar(255)',
@@ -224,6 +224,15 @@ class BookAuthor
     //////// SearchableDataObject //////// 
     public function getObjectRichSnippets() {
         
+    }
+
+    //////// SociableDataObject //////// 
+    public function getSocialDescription() {
+        if ($this->Biography) {
+            return strip_tags($this->Biography);
+        }
+
+        return $this->FullName();
     }
 
     public function ThumbPhoto() {

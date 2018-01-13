@@ -65,7 +65,7 @@
  */
 class Book
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
     private static $db = array(
         'Name' => 'Varchar(255)',
@@ -336,6 +336,15 @@ class Book
         return $schema;
 //        return json_encode($schema, JSON_UNESCAPED_UNICODE);
         return Convert::array2json($schema);
+    }
+
+    //////// SociableDataObject //////// 
+    public function getSocialDescription() {
+        if ($this->Overview) {
+            return strip_tags($this->Overview);
+        }
+
+        return $this->getObjectTitle();
     }
 
     public function getRelated() {

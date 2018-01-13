@@ -31,7 +31,7 @@
  */
 class BookFormat
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
     private static $db = array(
         'Title' => 'Varchar(255)',
@@ -174,6 +174,15 @@ class BookFormat
     //////// SearchableDataObject //////// 
     public function getObjectRichSnippets() {
         
+    }
+
+    //////// SociableDataObject //////// 
+    public function getSocialDescription() {
+        if ($this->Description) {
+            return strip_tags($this->Description);
+        }
+
+        return $this->getObjectTitle();
     }
 
 }

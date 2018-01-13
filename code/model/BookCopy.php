@@ -32,7 +32,7 @@
  */
 class BookCopy
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject {
+        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
     private static $db = array(
         'ISBN' => 'Varchar(20)', // 13 digit number ex; 978-3-16-148410-0
@@ -268,6 +268,19 @@ class BookCopy
         }
 
         return $schema;
+    }
+
+    //////// SociableDataObject //////// 
+    public function getSocialDescription() {
+        if ($this->Summary) {
+            return $this->Summary;
+        } elseif ($this->Content) {
+            return strip_tags($this->Content);
+        } elseif ($this->Explanations) {
+            return strip_tags($this->Explanations);
+        }
+
+        return $this->getObjectTitle();
     }
 
     public function getRandomVolumes($num = 2) {
