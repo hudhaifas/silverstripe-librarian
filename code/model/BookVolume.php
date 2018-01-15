@@ -462,4 +462,35 @@ class BookVolume
         return $this->BookCopy()->getAuthor();
     }
 
+    function reorderField($fields, $name, $fromTab, $toTab, $disabled = false) {
+        $field = $fields->fieldByName($fromTab . '.' . $name);
+
+        if ($field) {
+            $fields->removeFieldFromTab($fromTab, $name);
+            $fields->addFieldToTab($toTab, $field);
+
+            if ($disabled) {
+                $field = $field->performDisabledTransformation();
+            }
+        }
+
+        return $field;
+    }
+
+    function removeField($fields, $name, $fromTab) {
+        $field = $fields->fieldByName($fromTab . '.' . $name);
+
+        if ($field) {
+            $fields->removeFieldFromTab($fromTab, $name);
+        }
+
+        return $field;
+    }
+
+    function trim($field) {
+        if ($this->$field) {
+            $this->$field = trim($this->$field);
+        }
+    }
+
 }
