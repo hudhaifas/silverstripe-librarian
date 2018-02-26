@@ -250,6 +250,10 @@ class Book
         return LIBRARIAN_DIR . "/images/book-cover.png";
     }
 
+    public function getObjectEditableImageName() {
+        
+    }
+
     public function getObjectImage() {
         return $this->Cover();
     }

@@ -162,6 +162,10 @@ class BookAuthor
         return $this->Link("edit/$this->ID");
     }
 
+    public function getObjectEditableImageName() {
+        
+    }
+
     public function getObjectImage() {
         return $this->Photo();
     }

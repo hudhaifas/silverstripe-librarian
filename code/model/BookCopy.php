@@ -184,6 +184,10 @@ class BookCopy
         
     }
 
+    public function getObjectEditableImageName() {
+        
+    }
+
     public function getObjectImage() {
         return $this->getCoverImage();
     }
