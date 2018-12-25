@@ -1,7 +1,7 @@
 {
     "name": "hudhaifas/silverstripe-librarian",
     "description": "Complete solution for small and medium libraries.",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "homepage": "https://github.com/hudhaifas/silverstripe-librarian",
     "keywords": ["silverstripe", "library", "librarian", "book"],
     "license": "MIT",
@@ -15,14 +15,18 @@
         "issues": "http://github.com/hudhaifas/silverstripe-librarian/issues"
     },
     "require": {
-        "silverstripe/framework": "^4",
-        "silverstripe/cms": "^4",
-        "silverstripe/vendor-plugin": "^1.0",
-        "silverstripe/tagfield": "^2.0",
-        "hudhaifas/silverstripe-dataobject-manager": "dev-master",
-        "gheggie/silverstripe-barcode": "@dev"
+        "silverstripe/cms": "~3.0",
+        "silverstripe/framework": "~3.0",
+        "silverstripe/tagfield": "^1.0",
+        "gheggie/silverstripe-barcode": "@dev",
+        "samthejarvis/silverstripe-watermarking": "dev-master",
+        "hudhaifas/silverstripe-dataobject-manager": "dev-master"
     },
     "extra": {
-        "installer-name": "librarian"
+        "installer-name": "librarian",
+        "expose": [
+            "res/css",
+            "res/images"
+        ]
     }
 }
