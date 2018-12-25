@@ -15,12 +15,12 @@
         "issues": "http://github.com/hudhaifas/silverstripe-librarian/issues"
     },
     "require": {
-        "silverstripe/cms": "~3.0",
-        "silverstripe/framework": "~3.0",
-        "silverstripe/tagfield": "^1.0",
-        "gheggie/silverstripe-barcode": "@dev",
-        "samthejarvis/silverstripe-watermarking": "dev-master",
-        "hudhaifas/silverstripe-dataobject-manager": "dev-master"
+        "silverstripe/framework": "^4",
+        "silverstripe/cms": "^4",
+        "silverstripe/vendor-plugin": "^1.0",
+        "silverstripe/tagfield": "^2.0",
+        "hudhaifas/silverstripe-dataobject-manager": "dev-master",
+        "gheggie/silverstripe-barcode": "@dev"
     },
     "extra": {
         "installer-name": "librarian",
