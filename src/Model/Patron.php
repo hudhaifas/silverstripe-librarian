@@ -42,6 +42,7 @@ class Patron
         extends DataObject
         implements ManageableDataObject {
 
+    private static $table_name = "Patron";
     private static $db = [
         'SerialNumber' => 'Varchar(20)', // Unique codabar number
         'FirstName' => 'Varchar(255)',

@@ -42,6 +42,7 @@ class BookPublisher
         extends DataObject
         implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
+    private static $table_name = "BookPublisher";
     private static $db = [
         'Name' => 'Varchar(255)',
         'Address' => 'Varchar(255)',

@@ -40,6 +40,7 @@ use SilverStripe\View\Requirements;
 class BookLoanArchive
         extends DataObject {
 
+    private static $table_name = "BookLoanArchive";
     /**
      * Default loan period, can be changed from the YML config file
      * @var type 

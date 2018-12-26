@@ -40,6 +40,7 @@ class BookCategory
         extends DataObject
         implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
+    private static $table_name = "BookCategory";
     private static $db = [
         'Title' => 'Varchar(255)',
         'Description' => 'Text'

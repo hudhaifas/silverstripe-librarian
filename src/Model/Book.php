@@ -9,8 +9,6 @@ use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\ORM\Filters\PartialMatchFilter;
-use SilverStripe\ORM\Search\SearchContext;
 use SilverStripe\TagField\TagField;
 
 /*
@@ -80,6 +78,7 @@ class Book
         extends DataObject
         implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
+    private static $table_name = "Book";
     private static $db = [
         'Name' => 'Varchar(255)',
         'Subject' => 'Varchar(255)',

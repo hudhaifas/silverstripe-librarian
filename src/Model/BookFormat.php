@@ -39,7 +39,8 @@ use SilverStripe\ORM\DataObject;
 class BookFormat
         extends DataObject
         implements ManageableDataObject, SearchableDataObject, SociableDataObject {
-
+    
+    private static $table_name = "BookFormat";
     private static $db = [
         'Title' => 'Varchar(255)',
         'Description' => 'Text'

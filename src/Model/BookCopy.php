@@ -42,6 +42,7 @@ class BookCopy
         extends DataObject
         implements ManageableDataObject, SearchableDataObject, SociableDataObject {
 
+    private static $table_name = "BookCopy";
     private static $db = [
         'ISBN' => 'Varchar(20)', // 13 digit number ex; 978-3-16-148410-0
         'Title' => 'Varchar(255)',

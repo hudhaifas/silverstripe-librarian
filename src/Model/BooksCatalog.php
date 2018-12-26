@@ -38,6 +38,7 @@ use SilverStripe\ORM\PaginatedList;
 class BooksCatalog
         extends DataObject {
 
+    private static $table_name = "BooksCatalog";
     private static $db = [
         'Title' => 'Varchar(255)',
         'IsPublic' => 'Boolean'

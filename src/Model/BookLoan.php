@@ -41,6 +41,7 @@ class BookLoan
         extends DataObject
         implements ManageableDataObject {
 
+    private static $table_name = "BookLoan";
     /**
      * Default loan period, can be changed from the YML config file
      * @var type 
