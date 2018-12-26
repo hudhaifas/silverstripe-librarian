@@ -1,5 +1,8 @@
 <?php
 
+use HudhaifaS\DOM\Model\ManageableDataObject;
+use HudhaifaS\DOM\Model\SearchableDataObject;
+use HudhaifaS\DOM\Model\SociableDataObject;
 use SilverStripe\Assets\Image;
 use SilverStripe\Control\Director;
 use SilverStripe\ORM\ArrayList;

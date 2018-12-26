@@ -1,5 +1,6 @@
 <?php
 
+use HudhaifaS\DOM\Model\ManageableDataObject;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\ArrayList;

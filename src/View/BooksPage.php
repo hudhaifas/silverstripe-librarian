@@ -41,12 +41,12 @@ class BooksPage
     private static $allowed_children = array('BookVolumesPage', 'BookAuthorsPage', 'BookPublishersPage', 'BookCategoriesPage', 'BookFormatsPage');
     private static $description = 'Adds books page to your library website.';
 
-    public function canCreate($member = false) {
-        if (!$member || !(is_a($member, 'Member')) || is_numeric($member)) {
+    public function canCreate($member = null, $context = []) {
+        if (!$member || !(is_a($member, Member::class)) || is_numeric($member)) {
             $member = Member::currentUserID();
         }
 
-        return (DataObject::get($this->owner->class)->count() > 0) ? false : true;
+        return (DataObject::get($this->ClassName)->count() > 0) ? false : true;
     }
 
 }

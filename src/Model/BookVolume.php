@@ -1,5 +1,8 @@
 <?php
 
+use HudhaifaS\DOM\Model\ManageableDataObject;
+use HudhaifaS\DOM\Model\SearchableDataObject;
+use HudhaifaS\DOM\Model\SociableDataObject;
 use SilverStripe\Assets\Image;
 use SilverStripe\Control\Director;
 use SilverStripe\Forms\ListboxField;
@@ -65,12 +68,6 @@ class BookVolume
     ];
     private static $belongs_many_many = [
         'Catalogs' => BooksCatalog::class,
-    ];
-    private static $indexes = [
-        'SerialNumberIndex' => [
-            'type' => 'unique',
-            'value' => '"SerialNumber"'
-        ]
     ];
     private static $searchable_fields = [
         'SerialNumber' => [
@@ -193,24 +190,6 @@ class BookVolume
      */
     function AbsoluteLink($action = null) {
         return Director::absoluteURL($this->Link("show/$this->ID"));
-    }
-
-    public function getDefaultSearchContext() {
-        $fields = $this->scaffoldSearchFields([
-            'restrictFields' => [
-                'SerialNumber',
-                'BookTitle'
-            ]
-        ]);
-
-        $filters = [
-            'SerialNumber' => new EqualToFilter('SerialNumber'),
-            'BookTitle' => new PartialMatchFilter('BookTitle')
-        ];
-
-        return new SearchContext(
-                $this->class, $fields, $filters
-        );
     }
 
     public function getTitle() {
