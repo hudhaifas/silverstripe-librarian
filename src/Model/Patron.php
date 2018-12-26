@@ -1,7 +1,9 @@
 <?php
 
+use Gheggie\Barcode\Utils\CodabarNumber;
 use HudhaifaS\DOM\Model\ManageableDataObject;
 use SilverStripe\Assets\Image;
+use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
@@ -109,7 +111,7 @@ class Patron
 
     //////// ManageableDataObject ////////
     public function getObjectDefaultImage() {
-        return LIBRARIAN_DIR . "/images/default-author.png";
+        return ModuleLoader::getModule('hudhaifas/silverstripe-librarian')->getResource('res/images/default-author.png')->getURL();
     }
 
     public function getObjectEditLink() {

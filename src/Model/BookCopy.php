@@ -4,6 +4,7 @@ use HudhaifaS\DOM\Model\ManageableDataObject;
 use HudhaifaS\DOM\Model\SearchableDataObject;
 use HudhaifaS\DOM\Model\SociableDataObject;
 use SilverStripe\Assets\Image;
+use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 
@@ -184,7 +185,7 @@ class BookCopy
 
     //////// ManageableDataObject //////// 
     public function getObjectDefaultImage() {
-        return LIBRARIAN_DIR . "/images/book-cover.jpg";
+        return ModuleLoader::getModule('hudhaifas/silverstripe-librarian')->getResource('res/images/book-cover.png')->getURL();
     }
 
     public function getObjectEditLink() {

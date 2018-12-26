@@ -95,7 +95,7 @@ class BookLoanArchive
     }
 
     public function getCMSFields() {
-        Requirements::css(LIBRARIAN_DIR . '/css/librarian.css');
+        Requirements::css('hudhaifas/silverstripe-librarian: res/css/librarian.css');
 
         $fields = FieldList::create(
                         ToggleCompositeField::create('Book', 'Book', [

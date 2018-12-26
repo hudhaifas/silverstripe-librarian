@@ -5,7 +5,7 @@ use HudhaifaS\DOM\Model\SearchableDataObject;
 use HudhaifaS\DOM\Model\SociableDataObject;
 use SilverStripe\Assets\Image;
 use SilverStripe\Control\Director;
-use SilverStripe\Core\Convert;
+use SilverStripe\Core\Manifest\ModuleLoader;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
@@ -235,24 +235,6 @@ class Book
         return Director::absoluteURL($this->Link("show/$this->ID"));
     }
 
-    public function getDefaultSearchContext() {
-        $fields = $this->scaffoldSearchFields([
-            'restrictFields' => [
-                'Name',
-                'Authors.LastName',
-            ]
-        ]);
-
-        $filters = [
-            'Name' => new PartialMatchFilter('Name'),
-            'Authors.LastName' => new PartialMatchFilter('Authors.LastName'),
-        ];
-
-        return new SearchContext(
-                $this->class, $fields, $filters
-        );
-    }
-
     //////// ManageableDataObject //////// 
     public function getObjectTitle() {
         $title = $this->getTitle();
@@ -260,7 +242,7 @@ class Book
     }
 
     public function getObjectDefaultImage() {
-        return LIBRARIAN_DIR . "/images/book-cover.png";
+        return ModuleLoader::getModule('hudhaifas/silverstripe-librarian')->getResource('res/images/book-cover.png')->getURL();
     }
 
     public function getObjectEditableImageName() {

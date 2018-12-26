@@ -61,9 +61,9 @@ class LibrarianPageController extends PageController
     {
         parent::init();
 
-        Requirements::css("librarian/css/librarian.css");
+        Requirements::css("hudhaifas/silverstripe-librarian: res/css/librarian.css");
         if ($this->isRTL()) {
-            Requirements::css("librarian/css/librarian-rtl.css");
+            Requirements::css("hudhaifas/silverstripe-librarian: res/css/librarian-rtl.css");
         }
     }
 

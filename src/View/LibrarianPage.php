@@ -48,7 +48,7 @@ class LibrarianPage
         'Title' => 'Librarian',
         'MenuTitle' => 'Librarian',
     );
-    private static $icon = "librarian/images/librarian.png";
+    private static $icon = "hudhaifas/silverstripe-librarian: res/images/librarian.png";
     private static $url_segment = 'librarian';
     private static $menu_title = 'librarian';
     private static $allowed_children = array('PatronsPage', 'BookLoansPage');

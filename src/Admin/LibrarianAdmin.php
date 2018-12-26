@@ -1,7 +1,6 @@
 <?php
 
 use SilverStripe\Admin\ModelAdmin;
-use SilverStripe\Subsites\Forms\GridFieldSubsiteDetailForm;
 
 /*
  * MIT License
@@ -36,34 +35,20 @@ class LibrarianAdmin
         extends ModelAdmin {
 
     private static $managed_models = [
-        'Book',
-        'BookCopy',
-        'BookVolume',
-        'BookAuthor',
-        'BookPublisher',
-        'BookCategory',
-        'BookFormat',
-        'BooksCatalog',
-        'BookLoan',
-        'BookLoanArchive',
-        'Patron'
+        Book::class,
+        BookCopy::class,
+        BookVolume::class,
+        BookAuthor::class,
+        BookPublisher::class,
+        BookCategory::class,
+        BookFormat::class,
+        BooksCatalog::class,
+        BookLoan::class,
+        BookLoanArchive::class,
+        Patron::class
     ];
     private static $url_segment = 'library';
     private static $menu_title = "Library";
-    private static $menu_icon = "librarian/images/books.png";
-    public $showImportForm = false;
-    private static $tree_class = 'Library';
-
-    public function getEditForm($id = null, $fields = null) {
-        $form = parent::getEditForm($id, $fields);
-
-        $grid = $form->Fields()->dataFieldByName('Library');
-        if ($grid) {
-            $grid->getConfig()->removeComponentsByType('GridFieldDetailForm');
-            $grid->getConfig()->addComponent(new GridFieldSubsiteDetailForm());
-        }
-
-        return $form;
-    }
+    private static $menu_icon_class = 'icon font-icon-book';
 
 }

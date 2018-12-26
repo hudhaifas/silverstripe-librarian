@@ -35,7 +35,7 @@ use SilverStripe\Security\Member;
 class BookPublishersPage
         extends DataObjectPage {
 
-    private static $icon = "librarian/images/books.png";
+    private static $icon = "hudhaifas/silverstripe-librarian: res/images/books.png";
     private static $url_segment = 'publishers';
     private static $menu_title = 'Publishers';
     private static $allowed_children = 'none';
