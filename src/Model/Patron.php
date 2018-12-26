@@ -128,7 +128,7 @@ class Patron
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Library_Item');
+        return $this->renderWith('Includes\Library_Item');
     }
 
     public function getObjectLink() {
@@ -144,7 +144,7 @@ class Patron
     }
 
     public function getObjectSummary() {
-        return $this->renderWith('Patron_Summary');
+        return $this->renderWith('Includes\Patron_Summary');
     }
 
     public function getObjectTabs() {
@@ -165,7 +165,7 @@ class Patron
                         ->customise([
                             'Results' => $loans
                         ])
-                        ->renderWith('List_Grid')
+                        ->renderWith('Includes\List_Grid')
             ];
         }
 

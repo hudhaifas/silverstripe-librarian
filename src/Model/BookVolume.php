@@ -214,7 +214,7 @@ class BookVolume
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Library_Item');
+        return $this->renderWith('Includes\Library_Item');
     }
 
     public function getObjectLink() {
@@ -230,7 +230,7 @@ class BookVolume
     }
 
     public function getObjectSummary() {
-        return $this->renderWith('Volume_Summary');
+        return $this->renderWith('Includes\Volume_Summary');
     }
 
     public function getObjectTabs() {

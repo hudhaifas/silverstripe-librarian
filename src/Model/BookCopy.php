@@ -202,7 +202,7 @@ class BookCopy
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Library_Item');
+        return $this->renderWith('Includes\Library_Item');
     }
 
     public function getObjectLink() {

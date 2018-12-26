@@ -181,7 +181,7 @@ class BookAuthor
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Library_Item');
+        return $this->renderWith('Includes\Library_Item');
     }
 
     public function getObjectLink() {
@@ -197,7 +197,7 @@ class BookAuthor
     }
 
     public function getObjectSummary() {
-        return $this->renderWith('Author_Summary');
+        return $this->renderWith('Includes\Author_Summary');
     }
 
     public function getObjectTabs() {
@@ -218,7 +218,7 @@ class BookAuthor
                         ->customise([
                             'Results' => $books
                         ])
-                        ->renderWith('List_Grid')
+                        ->renderWith('Includes\List_Grid')
             ];
         }
 

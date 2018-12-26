@@ -257,7 +257,7 @@ class Book
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Library_Item');
+        return $this->renderWith('Includes\Library_Item');
     }
 
     public function getObjectLink() {
@@ -280,7 +280,7 @@ class Book
     }
 
     public function getObjectSummary() {
-        return $this->renderWith('Book_Summary');
+        return $this->renderWith('Includes\Book_Summary');
     }
 
     public function getObjectTabs() {
@@ -290,7 +290,7 @@ class Book
         if ($copies->Count()) {
             $lists[] = [
                 'Title' => _t("Librarian.BOOK_COPIES", "Book Copies") . " ({$copies->Count()})",
-                'Content' => $this->renderWith('Book_Copies')
+                'Content' => $this->renderWith('Includes\Book_Copies')
             ];
         }
 

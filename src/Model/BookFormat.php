@@ -127,7 +127,7 @@ class BookFormat
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Imageless_Item');
+        return $this->renderWith('Includes\Imageless_Item');
     }
 
     public function getObjectLink() {
@@ -166,7 +166,7 @@ class BookFormat
                         ->customise([
                             'Results' => $books
                         ])
-                        ->renderWith('List_Grid')
+                        ->renderWith('Includes\List_Grid')
             ];
         }
 

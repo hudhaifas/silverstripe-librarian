@@ -191,7 +191,7 @@ class BookLoan
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Imageless_Item');
+        return $this->renderWith('Includes\Imageless_Item');
     }
 
     public function getObjectLink() {
@@ -207,7 +207,7 @@ class BookLoan
     }
 
     public function getObjectSummary() {
-        return $this->renderWith('BookLoan_Summary');
+        return $this->renderWith('Includes\BookLoan_Summary');
     }
 
     public function getObjectTabs() {
@@ -215,7 +215,7 @@ class BookLoan
 
         $lists[] = [
             'Title' => _t("Librarian.DETAILS", "Details"),
-            'Content' => $this->renderWith('BookLoan_Details')
+            'Content' => $this->renderWith('Includes\BookLoan_Details')
         ];
 
         $this->extend('extraTabs', $lists);

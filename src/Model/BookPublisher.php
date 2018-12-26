@@ -131,7 +131,7 @@ class BookPublisher
     }
 
     public function getObjectItem() {
-        return $this->renderWith('Library_Item');
+        return $this->renderWith('Includes\Library_Item');
     }
 
     public function getObjectLink() {
@@ -177,7 +177,7 @@ class BookPublisher
                         ->customise([
                             'Results' => $books
                         ])
-                        ->renderWith('List_Grid')
+                        ->renderWith('Includes\List_Grid')
             ];
         }
 
