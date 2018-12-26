@@ -50,7 +50,7 @@ class BookCategory
     private static $has_many = [
     ];
     private static $belongs_many_many = [
-        'Books' => Book::class,
+        'Books' => Book::class
     ];
     private static $searchable_fields = [
         'Title',

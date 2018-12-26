@@ -137,48 +137,32 @@ class Book
     }
 
     public function getCMSFields() {
-        $self = & $this;
-
-        $this->beforeUpdateCMSFields(function ($fields) use ($self) {
-            $this->reorderField($fields, 'Name', 'Root.Main', 'Root.Main');
-            $this->reorderField($fields, 'Subject', 'Root.Main', 'Root.Main');
-
-            if ($field = $fields->fieldByName('Root.Main.Cover')) {
-                $field->getValidator()->setAllowedExtensions(['jpg', 'jpeg', 'png', 'gif']);
-                $field->setFolderName("librarian");
-
-                $fields->removeFieldFromTab('Root.Main', 'Cover');
-                $fields->addFieldToTab('Root.Main', $field);
-            }
-            $this->reorderField($fields, 'Overview', 'Root.Main', 'Root.Main');
-
-            $this->reorderField($fields, 'Language', 'Root.Main', 'Root.Details');
-            $this->reorderField($fields, 'OriginalPublish', 'Root.Main', 'Root.Details');
-
-            $fields->removeFieldFromTab('Root', 'Categories');
-            $fields->removeFieldFromTab('Root', 'Authors');
-
-            $categoryField = TagField::create(
-                            'Categories', //
-                            'Categories', //
-                            BookCategory::get(), //
-                            $self->Categories()
-            );
-            $fields->addFieldToTab('Root.Details', $categoryField);
-
-            $authorField = AuthorField::create(
-                            'Authors', //
-                            _t('Librarian.AUTHORS', 'Authors'), //
-                            BookAuthor::get(), //
-                            $self->Authors()
-            );
-
-            $authorField->setTitleField('SurName');
-            $authorField->setTitleFunction('OptionName');
-            $fields->addFieldToTab('Root.Details', $authorField);
-        });
-
         $fields = parent::getCMSFields();
+
+        $this->reorderField($fields, 'Name', 'Root.Main', 'Root.Main');
+        $this->reorderField($fields, 'Subject', 'Root.Main', 'Root.Main');
+
+        if ($field = $fields->fieldByName('Root.Main.Cover')) {
+            $field->getValidator()->setAllowedExtensions(['jpg', 'jpeg', 'png', 'gif']);
+            $field->setFolderName("librarian");
+
+            $fields->removeFieldFromTab('Root.Main', 'Cover');
+            $fields->addFieldToTab('Root.Main', $field);
+        }
+        $this->reorderField($fields, 'Overview', 'Root.Main', 'Root.Main');
+
+        $this->reorderField($fields, 'Language', 'Root.Main', 'Root.Details');
+        $this->reorderField($fields, 'OriginalPublish', 'Root.Main', 'Root.Details');
+
+        $fields->removeFieldFromTab('Root', 'Categories');
+
+        $categoryField = TagField::create(
+                        'Categories', //
+                        'Categories', //
+                        BookCategory::get(), //
+                        $this->Categories()
+        );
+        $fields->addFieldToTab('Root.Details', $categoryField);
 
         return $fields;
     }

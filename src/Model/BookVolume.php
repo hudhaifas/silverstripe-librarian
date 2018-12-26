@@ -160,7 +160,7 @@ class BookVolume
                             'Catalogs', //
                             _t('Librarian.CATALOGS', 'Catalogs'), //
                             BooksCatalog::get()->map()->toArray()
-                    )->setMultiple(true);
+                    );
             $fields->removeFieldFromTab('Root', 'Catalogs');
             $fields->addFieldToTab('Root.Main', $catalogField);
 
