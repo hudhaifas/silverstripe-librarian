@@ -19,7 +19,7 @@
         "silverstripe/cms": "^4",
         "silverstripe/vendor-plugin": "^1.0",
         "silverstripe/tagfield": "^2.0",
-        "hudhaifas/silverstripe-dataobject-manager": "4.*",
+        "hudhaifas/silverstripe-dataobject-manager": "^4.*",
         "gheggie/silverstripe-barcode": "4.*-dev"
     },
     "extra": {
