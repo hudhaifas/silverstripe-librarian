@@ -33,12 +33,12 @@ use SilverStripe\ORM\DataObject;
  */
 class BookLoansPageController extends DataObjectPageController
 {
-    protected function getObjectsList()
+    public function getObjectsList()
     {
         return DataObject::get(BookLoan::class);
     }
 
-    protected function searchObjects($list, $keywords)
+    public function searchObjects($list, $keywords)
     {
         return $list->filterAny([
                     'LoanDate:PartialMatch' => $keywords,
@@ -46,7 +46,7 @@ class BookLoansPageController extends DataObjectPageController
         ]);
     }
 
-    protected function getFiltersList()
+    public function getFiltersList()
     {
         return null;
     }

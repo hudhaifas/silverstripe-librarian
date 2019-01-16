@@ -33,12 +33,12 @@ use SilverStripe\ORM\DataObject;
  */
 class PatronsPageController extends DataObjectPageController
 {
-    protected function getObjectsList()
+    public function getObjectsList()
     {
         return DataObject::get(Patron::class);
     }
 
-    protected function searchObjects($list, $keywords)
+    public function searchObjects($list, $keywords)
     {
         return $list->filterAny([
                     'SerialNumber:PartialMatch' => $keywords,
@@ -49,7 +49,7 @@ class PatronsPageController extends DataObjectPageController
         ]);
     }
 
-    protected function getFiltersList()
+    public function getFiltersList()
     {
         return null;
     }

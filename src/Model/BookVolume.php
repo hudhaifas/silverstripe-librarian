@@ -2,8 +2,7 @@
 
 use Gheggie\Barcode\Utils\CodabarNumber;
 use HudhaifaS\DOM\Model\ManageableDataObject;
-use HudhaifaS\DOM\Model\SearchableDataObject;
-use HudhaifaS\DOM\Model\SociableDataObject;
+use HudhaifaS\DOM\Model\DiscoverableDataObject;
 use SilverStripe\Assets\Image;
 use SilverStripe\Control\Director;
 use SilverStripe\Forms\ListboxField;
@@ -45,7 +44,7 @@ use SilverStripe\SiteConfig\SiteConfig;
  */
 class BookVolume
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
+        implements ManageableDataObject, DiscoverableDataObject {
 
     private static $table_name = "BookVolume";
     private static $db = [
@@ -256,8 +255,8 @@ class BookVolume
         return $this->canView();
     }
 
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
+    //////// DiscoverableDataObject //////// 
+    public function getObjectMarkup() {
         $schema = [];
 
         $schema['@context'] = "http://schema.org";
@@ -321,7 +320,7 @@ class BookVolume
     }
 
     //////// SociableDataObject //////// 
-    public function getSocialDescription() {
+    public function getObjectDescription() {
         if ($this->getOverview()) {
             return strip_tags($this->getOverview());
         }

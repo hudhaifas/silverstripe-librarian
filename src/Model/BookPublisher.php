@@ -1,8 +1,7 @@
 <?php
 
 use HudhaifaS\DOM\Model\ManageableDataObject;
-use HudhaifaS\DOM\Model\SearchableDataObject;
-use HudhaifaS\DOM\Model\SociableDataObject;
+use HudhaifaS\DOM\Model\DiscoverableDataObject;
 use SilverStripe\Assets\Image;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Manifest\ModuleLoader;
@@ -40,7 +39,7 @@ use SilverStripe\ORM\DataObject;
  */
 class BookPublisher
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
+        implements ManageableDataObject, DiscoverableDataObject {
 
     private static $table_name = "BookPublisher";
     private static $db = [
@@ -194,13 +193,13 @@ class BookPublisher
         return $this->canView();
     }
 
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
+    //////// DiscoverableDataObject //////// 
+    public function getObjectMarkup() {
         
     }
 
     //////// SociableDataObject //////// 
-    public function getSocialDescription() {
+    public function getObjectDescription() {
         if ($this->Description) {
             return strip_tags($this->Description);
         }

@@ -33,12 +33,12 @@ use SilverStripe\ORM\DataObject;
  */
 class BooksPageController extends DataObjectPageController
 {
-    protected function getObjectsList()
+    public function getObjectsList()
     {
         return DataObject::get(Book::class);
     }
 
-    protected function searchObjects($list, $keywords)
+    public function searchObjects($list, $keywords)
     {
         return $list->filterAny([
                     'Name:PartialMatch' => $keywords,
@@ -48,7 +48,7 @@ class BooksPageController extends DataObjectPageController
         ]);
     }
 
-    protected function getFiltersList()
+    public function getFiltersList()
     {
         return null;
     }

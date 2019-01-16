@@ -1,8 +1,7 @@
 <?php
 
 use HudhaifaS\DOM\Model\ManageableDataObject;
-use HudhaifaS\DOM\Model\SearchableDataObject;
-use HudhaifaS\DOM\Model\SociableDataObject;
+use HudhaifaS\DOM\Model\DiscoverableDataObject;
 use SilverStripe\Assets\Image;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Manifest\ModuleLoader;
@@ -76,7 +75,7 @@ use SilverStripe\TagField\TagField;
  */
 class Book
         extends DataObject
-        implements ManageableDataObject, SearchableDataObject, SociableDataObject {
+        implements ManageableDataObject, DiscoverableDataObject {
 
     private static $table_name = "Book";
     private static $db = [
@@ -294,8 +293,8 @@ class Book
         return $this->canView();
     }
 
-    //////// SearchableDataObject //////// 
-    public function getObjectRichSnippets() {
+    //////// DiscoverableDataObject //////// 
+    public function getObjectMarkup() {
         $schema = [];
 
         $schema['@context'] = "http://schema.org";
@@ -312,7 +311,7 @@ class Book
         }
 
         foreach ($this->BookCopies() as $copy) {
-            $schema['workExample'] = $copy->getObjectRichSnippets();
+            $schema['workExample'] = $copy->getObjectMarkup();
         }
 
         return $schema;
@@ -321,7 +320,7 @@ class Book
     }
 
     //////// SociableDataObject //////// 
-    public function getSocialDescription() {
+    public function getObjectDescription() {
         if ($this->Overview) {
             return strip_tags($this->Overview);
         }

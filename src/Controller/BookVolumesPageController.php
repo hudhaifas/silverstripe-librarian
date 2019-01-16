@@ -41,12 +41,12 @@ class BookVolumesPageController extends DataObjectPageController
         'catalog/$ID' => 'catalog',
     ];
 
-    protected function getObjectsList()
+    public function getObjectsList()
     {
         return DataObject::get(BookVolume::class);
     }
 
-    protected function searchObjects($list, $keywords)
+    public function searchObjects($list, $keywords)
     {
         return $list->filterAny([
                     'Name:PartialMatch' => $keywords,
@@ -57,7 +57,7 @@ class BookVolumesPageController extends DataObjectPageController
         ]);
     }
 
-    protected function getFiltersList()
+    public function getFiltersList()
     {
         return null;
     }
