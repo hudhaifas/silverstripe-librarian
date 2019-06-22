@@ -7,7 +7,7 @@ LibraryObject:
 
 LibrarianAdmin
   extensions:
-    - SubsiteMenuExtension
+    - SilverStripe\Subsites\Extensions\SubsiteMenuExtension
 
 # Use with silverstripe/fluent 
 #Book:
