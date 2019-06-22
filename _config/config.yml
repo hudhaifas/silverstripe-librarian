@@ -1,10 +1,6 @@
 ---
 Name: librarian
 ---
-LibraryObject:
-  groups:
-    - Librarian
-
 LibrarianAdmin
   extensions:
     - SilverStripe\Subsites\Extensions\SubsiteMenuExtension
