@@ -5,6 +5,10 @@ LibraryObject:
   groups:
     - Librarian
 
+LibrarianAdmin
+  extensions:
+    - SubsiteMenuExtension
+
 # Use with silverstripe/fluent 
 #Book:
 #  extensions:
